@@ -1,0 +1,60 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Base theme and utilities */
+@layer base {
+  html {
+    scroll-behavior: smooth;
+    height: 100%;
+  }
+  body {
+    @apply bg-white text-zinc-900 dark:bg-zinc-950 dark:text-zinc-100 antialiased;
+    font-family: "Inter", ui-sans-serif, system-ui, -apple-system, Segoe UI,
+      Roboto, Ubuntu, Cantarell, Noto Sans, "Helvetica Neue", Arial,
+      "Apple Color Emoji", "Segoe UI Emoji";
+    height: 100%;
+  }
+  ::selection {
+    @apply bg-brand text-white;
+  }
+}
+
+@layer components {
+  .btn-primary {
+    @apply inline-flex items-center rounded-md bg-brand text-white px-4 py-2 text-sm font-medium shadow hover:opacity-90 transition;
+  }
+  .btn-outline {
+    @apply inline-flex items-center rounded-md border border-zinc-300 dark:border-zinc-700 px-4 py-2 text-sm text-zinc-900 dark:text-white hover:bg-zinc-100 dark:hover:bg-zinc-800 transition;
+  }
+}
+
+@layer utilities {
+  .fullscreen-section {
+    @apply min-h-screen flex items-center relative snap-start;
+  }
+  @keyframes bounceUp {
+    0%,
+    100% {
+      transform: translateY(-50px);
+    }
+    50% {
+      transform: translateY(-60px);
+    }
+  }
+  @keyframes bounceDown {
+    0%,
+    100% {
+      transform: translateY(-50px);
+    }
+    50% {
+      transform: translateY(-20px);
+    }
+  }
+  .animate-bounceUp {
+    animation: bounceUp 5s cubic-bezier(0.68, -0.55, 0.27, 1.55) infinite;
+  }
+  .animate-bounceDown {
+    animation: bounceDown 5s cubic-bezier(0.68, -0.55, 0.27, 1.55) infinite;
+  }
+}
