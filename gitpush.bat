@@ -2,7 +2,7 @@
 REM Smart Git Push Script
 REM Detects changes, commits them, pulls remote changes, and pushes to main branch.
 
-cd /d "C:\Users\Emmanuel Chijioke\Documents\csender"
+cd /d "C:\Users\Emmanuel Chijioke\Documents\react\potrfolio"
 
 echo.
 echo === Checking Git Status ===

@@ -1,52 +1,84 @@
 import Reveal from "./Reveal";
-import { FiGithub, FiLinkedin, FiMail } from "react-icons/fi";
 import profileUrl from "../assets/final.png";
 import { useParallax } from "../hooks/useParallax";
 import ScrollArrows from "./ScrollArrows";
+import { useState, useEffect } from "react";
 
 export default function Hero() {
-	const bgRef = useParallax(0.15);
-	return (
-		<section id="home" className="relative overflow-hidden fullscreen-section">
-			<div className="absolute inset-0 -z-10 overflow-hidden">
-				<div ref={bgRef} className="pointer-events-none absolute -inset-x-10 -top-24 h-80 rounded-full bg-brand/10 blur-3xl"></div>
-			</div>
-			<div className="mx-auto max-w-6xl px-4 py-16 sm:py-20">
-				<div className="grid grid-cols-1 md:grid-cols-2 items-center gap-10">
-					<div className="order-2 md:order-1">
-						<Reveal>
-							<p className="text-sm text-zinc-500 dark:text-zinc-400">Welcome</p>
-						</Reveal>
-						<Reveal delayMs={80}>
-							<h1 className="mt-2 text-4xl sm:text-5xl font-bold tracking-tight text-zinc-900 dark:text-white">Hi, I'm Emmanuel Chijioke</h1>
-						</Reveal>
-						<Reveal delayMs={120}>
-							<p className="mt-4 max-w-2xl text-zinc-600 dark:text-zinc-300">Frontend Developer — building accessible, performant React apps with TypeScript.</p>
-						</Reveal>
-						<Reveal delayMs={160}>
-							<div className="mt-8 flex flex-wrap gap-3">
-								<a href="#projects" className="btn-primary">View Projects</a>
-								<a href="#contact" className="btn-outline">Contact Me</a>
-							</div>
-						</Reveal>
-						<Reveal delayMs={200}>
-							<div className="mt-6 flex items-center gap-4 text-zinc-600 dark:text-zinc-300">
-								<a className="hover:text-brand" href="https://github.com/" target="_blank" rel="noreferrer" aria-label="GitHub"><FiGithub size={20}></FiGithub></a>
-								<a className="hover:text-brand" href="https://linkedin.com/" target="_blank" rel="noreferrer" aria-label="LinkedIn"><FiLinkedin size={20}></FiLinkedin></a>
-								<a className="hover:text-brand" href="mailto:chijiokeemma2003@gmail.com" aria-label="Email"><FiMail size={20}></FiMail></a>
-							</div>
-						</Reveal>
-					</div>
-					<div className="order-1 md:order-2 flex justify-center">
-						<Reveal>
-							<img src={profileUrl} alt="Profile" className="h-40 w-40 sm:h-48 sm:w-48 md:h-56 md:w-56 rounded-full object-cover border-4 border-zinc-200 dark:border-zinc-800 shadow-md" />
-						</Reveal>
-					</div>
-				</div>
-			</div>
-			<ScrollArrows nextId="about"></ScrollArrows>
-		</section>
-	);
+  const bgRef = useParallax(0.15);
+  const [currentTitle, setCurrentTitle] = useState("DEVELOPER");
+
+  useEffect(() => {
+    const titles = ["DEVELOPER", "GRAPHICS DESIGNER"];
+    let currentIndex = 0;
+
+    const interval = setInterval(() => {
+      currentIndex = (currentIndex + 1) % titles.length;
+      setCurrentTitle(titles[currentIndex]);
+    }, 3000);
+
+    return () => clearInterval(interval);
+  }, []);
+
+  return (
+    <section id="home" className="relative overflow-hidden fullscreen-section">
+      <div className="absolute inset-0 -z-10 overflow-hidden">
+        <div
+          ref={bgRef}
+          className="pointer-events-none absolute -inset-x-10 -top-24 h-80 rounded-full bg-brand/10 blur-3xl"
+        ></div>
+      </div>
+      <div className="mx-auto max-w-7xl px-4 py-16 sm:py-20">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+          {/* Left Card - Profile */}
+          <Reveal animation="fade-right" distance={50}>
+            <div className="bg-white/80 dark:bg-zinc-800/80 rounded-3xl p-8 border border-zinc-200 dark:border-zinc-700 shadow-xl overflow-hidden">
+              <div className="text-center">
+                <div className="mb-6 relative">
+                  <img
+                    src={profileUrl}
+                    alt="Emmanuel Chijioke"
+                    className="w-64 h-64 object-contain rounded-2xl border-4 border-zinc-200 dark:border-zinc-700 shadow-lg mx-auto"
+                  />
+                </div>
+                <h1 className="text-3xl font-bold text-zinc-900 dark:text-white mb-2">
+                  Emmanuel Chijioke
+                </h1>
+                <p className="text-lg text-zinc-600 dark:text-zinc-400 mb-6 transition-all duration-700 ease-in-out">
+                  {currentTitle}
+                </p>
+              </div>
+            </div>
+          </Reveal>
+
+          {/* Right Card - Introduction */}
+          <Reveal animation="fade-left" distance={50}>
+            <div className="bg-white/80 dark:bg-zinc-800/80 rounded-3xl p-8 border border-zinc-200 dark:border-zinc-700 shadow-xl relative">
+              <div className="absolute top-4 left-6">
+                <span className="text-brand text-sm font-medium uppercase tracking-wider">
+                  INTRO
+                </span>
+              </div>
+
+              <div className="mt-8">
+                <h2 className="text-5xl font-bold text-zinc-900 dark:text-white mb-6 leading-tight">
+                  Hi, from <span className="text-brand">Emmanuel Chijioke</span>
+                  , Developer and Designer
+                </h2>
+
+                <p className="text-lg text-zinc-600 dark:text-zinc-300 mb-8 leading-relaxed">
+                  I'm a passionate full-stack developer with a mission to create
+                  delightful and intuitive digital experiences. With a strong
+                  foundation in modern web technologies and a keen eye for
+                  detail, I specialize in translating complex ideas into
+                  user-friendly interfaces that captivate and engage.
+                </p>
+              </div>
+            </div>
+          </Reveal>
+        </div>
+      </div>
+      <ScrollArrows nextId="about"></ScrollArrows>
+    </section>
+  );
 }
-
-

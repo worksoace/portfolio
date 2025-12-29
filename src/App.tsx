@@ -2,6 +2,7 @@ import "./App.css";
 import MouseTrail from "./components/MouseTrail";
 import NavBar from "./components/NavBar";
 import ThemeToggle from "./components/ThemeToggle";
+import SocialSidebar from "./components/SocialSidebar";
 import Hero from "./components/Hero";
 import About from "./components/About";
 import Experience from "./components/Experience";
@@ -36,32 +37,16 @@ function App() {
     return () => window.removeEventListener("hashchange", onHashChange);
   }, []);
 
-  // Listen for scroll (wheel/touch) to change section
-  useEffect(() => {
-    const onWheel = (e: WheelEvent) => {
-      if (Math.abs(e.deltaY) < 30) return;
-      const idx = sections.findIndex((s) => s.id === activeSection);
-      if (e.deltaY > 0 && idx < sections.length - 1) {
-        setActiveSection(sections[idx + 1].id);
-        window.location.hash = `#${sections[idx + 1].id}`;
-      } else if (e.deltaY < 0 && idx > 0) {
-        setActiveSection(sections[idx - 1].id);
-        window.location.hash = `#${sections[idx - 1].id}`;
-      }
-    };
-    window.addEventListener("wheel", onWheel, { passive: false });
-    return () => window.removeEventListener("wheel", onWheel);
-  }, [activeSection]);
-
   return (
     <>
       <MouseTrail />
       <div className="fixed top-6 right-8 z-50">
         <ThemeToggle />
       </div>
+      <SocialSidebar />
       <div className="flex">
         <NavBar />
-        <div className="flex-1 ml-20 flex flex-col min-h-screen">
+        <div className="flex-1 md:ml-20 flex flex-col min-h-screen">
           <main className="flex-1 flex items-center justify-center transition-all duration-500 overflow-hidden">
             {sections.map((s) => (
               <div
