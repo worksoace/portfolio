@@ -26,14 +26,9 @@ export default function ThemeToggle() {
     <button
       aria-label="Toggle dark mode"
       onClick={() => setTheme(theme === "dark" ? "light" : "dark")}
-      className="group relative inline-flex items-center gap-2 rounded-xl border border-zinc-300 dark:border-zinc-700 px-4 py-2 text-sm hover:bg-zinc-100 dark:hover:bg-zinc-800 transition-all duration-300 hover:scale-105 hover:shadow-lg hover:border-brand/50 before:content-[''] before:absolute before:inset-0 before:rounded-xl before:bg-gradient-to-r before:from-brand/10 before:to-transparent before:opacity-0 hover:before:opacity-100 before:transition-opacity before:duration-300"
+      className="w-9 h-9 rounded-lg border border-zinc-200 dark:border-zinc-800 bg-white dark:bg-zinc-900 flex items-center justify-center text-zinc-500 dark:text-zinc-400 hover:text-brand hover:border-brand/50 transition-colors"
     >
-      <div className="relative z-10 transition-transform duration-300 group-hover:rotate-12">
-        {theme === "dark" ? <FiSun></FiSun> : <FiMoon></FiMoon>}
-      </div>
-      <span className="hidden sm:inline relative z-10 font-medium">
-        {theme === "dark" ? "Light" : "Dark"}
-      </span>
+      {theme === "dark" ? <FiSun size={16} /> : <FiMoon size={16} />}
     </button>
   );
 }

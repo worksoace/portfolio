@@ -1,84 +1,92 @@
 import Reveal from "./Reveal";
-import profileUrl from "../assets/final.png";
-import { useParallax } from "../hooks/useParallax";
-import ScrollArrows from "./ScrollArrows";
+import profileBlue from "../assets/final-blue.png";
+import profileWhite from "../assets/final-white.png";
 import { useState, useEffect } from "react";
 
 export default function Hero() {
-  const bgRef = useParallax(0.15);
   const [currentTitle, setCurrentTitle] = useState("DEVELOPER");
 
   useEffect(() => {
     const titles = ["DEVELOPER", "GRAPHICS DESIGNER"];
     let currentIndex = 0;
-
     const interval = setInterval(() => {
       currentIndex = (currentIndex + 1) % titles.length;
       setCurrentTitle(titles[currentIndex]);
     }, 3000);
-
     return () => clearInterval(interval);
   }, []);
 
   return (
-    <section id="home" className="relative overflow-hidden fullscreen-section">
-      <div className="absolute inset-0 -z-10 overflow-hidden">
-        <div
-          ref={bgRef}
-          className="pointer-events-none absolute -inset-x-10 -top-24 h-80 rounded-full bg-brand/10 blur-3xl"
-        ></div>
+    <section
+      id="home"
+      className="relative min-h-screen flex items-center justify-center overflow-hidden"
+    >
+      {/* Subtle background glow */}
+      <div className="pointer-events-none absolute -top-32 left-1/2 -translate-x-1/2 w-[600px] h-[400px] rounded-full bg-brand/10 blur-3xl -z-10" />
+
+      <div className="mx-auto max-w-2xl px-6 py-24 w-full flex flex-col items-center text-center">
+        {/* Profile image */}
+        <Reveal animation="fade-up" distance={30}>
+          <div className="relative mb-8">
+            <div className="absolute inset-0 rounded-full bg-brand/20 blur-2xl scale-110 -z-10" />
+            <img
+              src={profileWhite}
+              alt="Emmanuel Chijioke"
+              className="block dark:hidden w-[300px] h-[300px] object-contain rounded-full border border-zinc-200 shadow-xl"
+              style={{ maxWidth: "300%", minHeight: "300px" }}
+            />
+            <img
+              src={profileBlue}
+              alt="Emmanuel Chijioke"
+              className="hidden dark:block w-[300px] h-[300px] object-contain rounded-full border border-zinc-800 shadow-xl"
+              style={{ maxWidth: "300%", minHeight: "300px" }}
+            />
+          </div>
+        </Reveal>
+
+        <Reveal animation="fade-up" distance={30} delayMs={100}>
+          <span className="text-brand text-xs font-mono tracking-[0.3em] uppercase mb-4 block">
+            &gt; hello world
+          </span>
+        </Reveal>
+
+        <Reveal animation="fade-up" distance={30} delayMs={180}>
+          <h1 className="text-5xl sm:text-6xl font-bold text-zinc-900 dark:text-white leading-tight mb-4">
+            Emmanuel Chijioke
+          </h1>
+        </Reveal>
+
+        <Reveal animation="fade-up" distance={30} delayMs={260}>
+          <p className="text-brand font-mono text-lg mb-6 h-7 transition-all duration-700">
+            {currentTitle}
+          </p>
+        </Reveal>
+
+        <Reveal animation="fade-up" distance={30} delayMs={340}>
+          <p className="text-zinc-500 dark:text-zinc-400 leading-relaxed max-w-md mb-10">
+            Full-stack developer and UI/UX designer crafting clean, functional
+            digital experiences. I turn complex ideas into interfaces that just
+            work.
+          </p>
+        </Reveal>
+
+        <Reveal animation="fade-up" distance={30} delayMs={420}>
+          <div className="flex gap-4 justify-center">
+            <a
+              href="#projects"
+              className="px-6 py-3 bg-brand text-zinc-900 font-semibold text-sm rounded-lg hover:bg-brand-dark transition-colors"
+            >
+              View Work
+            </a>
+            <a
+              href="#contact"
+              className="px-6 py-3 border border-zinc-300 dark:border-zinc-700 text-zinc-700 dark:text-zinc-300 font-semibold text-sm rounded-lg hover:border-brand hover:text-brand transition-colors"
+            >
+              Contact Me
+            </a>
+          </div>
+        </Reveal>
       </div>
-      <div className="mx-auto max-w-7xl px-4 py-16 sm:py-20">
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
-          {/* Left Card - Profile */}
-          <Reveal animation="fade-right" distance={50}>
-            <div className="bg-white/80 dark:bg-zinc-800/80 rounded-3xl p-8 border border-zinc-200 dark:border-zinc-700 shadow-xl overflow-hidden">
-              <div className="text-center">
-                <div className="mb-6 relative">
-                  <img
-                    src={profileUrl}
-                    alt="Emmanuel Chijioke"
-                    className="w-64 h-64 object-contain rounded-2xl border-4 border-zinc-200 dark:border-zinc-700 shadow-lg mx-auto"
-                  />
-                </div>
-                <h1 className="text-3xl font-bold text-zinc-900 dark:text-white mb-2">
-                  Emmanuel Chijioke
-                </h1>
-                <p className="text-lg text-zinc-600 dark:text-zinc-400 mb-6 transition-all duration-700 ease-in-out">
-                  {currentTitle}
-                </p>
-              </div>
-            </div>
-          </Reveal>
-
-          {/* Right Card - Introduction */}
-          <Reveal animation="fade-left" distance={50}>
-            <div className="bg-white/80 dark:bg-zinc-800/80 rounded-3xl p-8 border border-zinc-200 dark:border-zinc-700 shadow-xl relative">
-              <div className="absolute top-4 left-6">
-                <span className="text-brand text-sm font-medium uppercase tracking-wider">
-                  INTRO
-                </span>
-              </div>
-
-              <div className="mt-8">
-                <h2 className="text-5xl font-bold text-zinc-900 dark:text-white mb-6 leading-tight">
-                  Hi, from <span className="text-brand">Emmanuel Chijioke</span>
-                  , Developer and Designer
-                </h2>
-
-                <p className="text-lg text-zinc-600 dark:text-zinc-300 mb-8 leading-relaxed">
-                  I'm a passionate full-stack developer with a mission to create
-                  delightful and intuitive digital experiences. With a strong
-                  foundation in modern web technologies and a keen eye for
-                  detail, I specialize in translating complex ideas into
-                  user-friendly interfaces that captivate and engage.
-                </p>
-              </div>
-            </div>
-          </Reveal>
-        </div>
-      </div>
-      <ScrollArrows nextId="about"></ScrollArrows>
     </section>
   );
 }

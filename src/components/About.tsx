@@ -1,113 +1,76 @@
 import Reveal from "./Reveal";
-import ScrollArrows from "./ScrollArrows";
 
 export default function About() {
+  const stats = [
+    { value: "5+", label: "Years Experience" },
+    { value: "50+", label: "Projects Completed" },
+    { value: "80%", label: "Client Satisfaction" },
+  ];
+
   return (
-    <section id="about" className="fullscreen-section">
-      <div className="mx-auto max-w-7xl px-4 py-16">
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
-          {/* Left side - Content */}
-          <Reveal animation="fade-right" distance={50}>
-            <div className="space-y-8">
-              <div>
-                <span className="text-blue-600 text-2xl font-bold p-6 flex justify-center tracking-wider">
-                  ABOUT
-                </span>
-                <h2 className="text-5xl font-bold text-zinc-900 dark:text-white mt-2 mb-6">
-                  Passionate Developer & Designer
-                </h2>
-                <p className="text-lg text-zinc-600 dark:text-zinc-300 leading-relaxed">
-                  I'm a passionate full-stack developer and UI/UX designer with
-                  over 3 years of experience creating digital experiences that
-                  combine beautiful design with robust functionality. My journey
-                  began with graphic design, which gave me a strong foundation
-                  in visual communication and user-centered design principles.
-                </p>
-              </div>
+    <section id="about" className="section-block bg-zinc-50 dark:bg-zinc-900/50">
+      <div className="mx-auto max-w-2xl text-center">
+        <Reveal animation="fade-up" distance={30}>
+          <span className="text-brand font-mono text-xs tracking-[0.3em] uppercase mb-3 block">
+            &gt; about
+          </span>
+        </Reveal>
+        <Reveal animation="fade-up" distance={30} delayMs={100}>
+          <h2 className="text-4xl font-bold text-zinc-900 dark:text-white mb-6">
+            Passionate Developer & Designer
+          </h2>
+        </Reveal>
 
-              <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
-                <div className="bg-white/80 dark:bg-zinc-800/80 rounded-xl p-6 border border-zinc-200 dark:border-zinc-700">
-                  <h3 className="text-lg font-semibold text-zinc-900 dark:text-white mb-3">
-                    Development
-                  </h3>
-                  <p className="text-sm text-zinc-600 dark:text-zinc-300 leading-relaxed">
-                    I specialize in React, TypeScript, and modern web
-                    technologies. I build scalable, maintainable applications
-                    with a focus on performance, accessibility, and user
-                    experience.
-                  </p>
+        <Reveal animation="fade-up" distance={30} delayMs={180}>
+          <p className="text-zinc-500 dark:text-zinc-400 leading-relaxed mb-12">
+            I'm a full-stack developer and UI/UX designer with over 3 years of
+            experience creating digital experiences that combine beautiful design
+            with robust functionality. My journey began with graphic design,
+            giving me a strong foundation in visual communication and
+            user-centered principles.
+          </p>
+        </Reveal>
+
+        {/* Stats */}
+        <Reveal animation="fade-up" distance={30} delayMs={260}>
+          <div className="grid grid-cols-3 gap-6 mb-12">
+            {stats.map((stat) => (
+              <div key={stat.label}>
+                <div className="text-3xl font-bold text-brand mb-1">
+                  {stat.value}
                 </div>
-                <div className="bg-white/80 dark:bg-zinc-800/80 rounded-xl p-6 border border-zinc-200 dark:border-zinc-700">
-                  <h3 className="text-lg font-semibold text-zinc-900 dark:text-white mb-3">
-                    Design
-                  </h3>
-                  <p className="text-sm text-zinc-600 dark:text-zinc-300 leading-relaxed">
-                    With expertise in UI/UX design, I create intuitive
-                    interfaces that users love. I believe great design is
-                    invisible—it just works seamlessly.
-                  </p>
+                <div className="text-xs text-zinc-500 dark:text-zinc-400 leading-tight">
+                  {stat.label}
                 </div>
               </div>
+            ))}
+          </div>
+        </Reveal>
+
+        {/* Cards */}
+        <Reveal animation="fade-up" distance={30} delayMs={340}>
+          <div className="grid grid-cols-2 gap-4 text-left">
+            <div className="border border-zinc-200 dark:border-zinc-800 rounded-xl p-5">
+              <h3 className="text-sm font-semibold text-zinc-900 dark:text-white mb-2">
+                Development
+              </h3>
+              <p className="text-xs text-zinc-500 dark:text-zinc-400 leading-relaxed">
+                React, TypeScript, and modern web tech. Scalable apps with a
+                focus on performance and accessibility.
+              </p>
             </div>
-          </Reveal>
-
-          {/* Right side - Visual elements */}
-          <Reveal animation="fade-left" distance={50}>
-            <div className="relative">
-              <div className="bg-white/80 dark:bg-zinc-800/80 rounded-3xl p-8 border border-zinc-200 dark:border-zinc-700 shadow-xl">
-                <div className="space-y-6">
-                  <div className="flex items-center gap-4">
-                    <div className="w-12 h-12  rounded-xl flex items-center justify-center">
-                      <span className="text-brand font-bold text-lg">5+</span>
-                    </div>
-                    <div>
-                      <h4 className="font-semibold text-zinc-900 dark:text-white">
-                        Years Experience
-                      </h4>
-                      <p className="text-sm text-zinc-600 dark:text-zinc-300">
-                        Frontend development
-                      </p>
-                    </div>
-                  </div>
-
-                  <div className="flex items-center gap-4">
-                    <div className="w-12 h-12  rounded-xl flex items-center justify-center">
-                      <span className="text-brand font-bold text-lg">50+</span>
-                    </div>
-                    <div>
-                      <h4 className="font-semibold text-zinc-900 dark:text-white">
-                        Projects Completed
-                      </h4>
-                      <p className="text-sm text-zinc-600 dark:text-zinc-300">
-                        Web applications & designs
-                      </p>
-                    </div>
-                  </div>
-
-                  <div className="flex items-center gap-4">
-                    <div className="w-12 h-12  rounded-xl flex items-center justify-center">
-                      <span className="text-brand font-bold text-lg">80%</span>
-                    </div>
-                    <div>
-                      <h4 className="font-semibold text-zinc-900 dark:text-white">
-                        Client Satisfaction
-                      </h4>
-                      <p className="text-sm text-zinc-600 dark:text-zinc-300">
-                        Delivering excellence
-                      </p>
-                    </div>
-                  </div>
-                </div>
-              </div>
-
-              {/* Decorative elements */}
-              <div className="absolute -top-4 -right-4 w-24 h-24 bg-brand/10 rounded-full blur-xl"></div>
-              <div className="absolute -bottom-4 -left-4 w-32 h-32 bg-brand/5 rounded-full blur-2xl"></div>
+            <div className="border border-zinc-200 dark:border-zinc-800 rounded-xl p-5">
+              <h3 className="text-sm font-semibold text-zinc-900 dark:text-white mb-2">
+                Design
+              </h3>
+              <p className="text-xs text-zinc-500 dark:text-zinc-400 leading-relaxed">
+                UI/UX design that's intuitive and invisible — it just works
+                seamlessly for the user.
+              </p>
             </div>
-          </Reveal>
-        </div>
+          </div>
+        </Reveal>
       </div>
-      <ScrollArrows prevId="home" nextId="experience"></ScrollArrows>
     </section>
   );
 }

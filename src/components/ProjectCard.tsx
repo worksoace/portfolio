@@ -13,84 +13,67 @@ type ProjectCardProps = {
 export default function ProjectCard({
   title,
   description,
-  image,
   tech,
   link,
   liveLink,
   features,
 }: ProjectCardProps) {
   return (
-    <article className="rounded-xl border border-zinc-200 dark:border-zinc-800 p-6 bg-white/80 dark:bg-zinc-900/80 hover:shadow-lg transition-all duration-300 hover:scale-[1.02]">
-      {image && (
-        <div className="mb-4 overflow-hidden rounded-lg border border-zinc-200 dark:border-zinc-800">
-          <img
-            src={image}
-            alt="Project preview"
-            className="w-full h-48 object-cover hover:scale-105 transition-transform duration-300"
-          />
-        </div>
-      )}
-      <h3 className="text-xl font-semibold text-zinc-900 dark:text-white mb-3">
+    <article className="group rounded-xl border border-zinc-200 dark:border-zinc-800 p-6 bg-white dark:bg-zinc-900 hover:border-brand/40 transition-all duration-300 h-full flex flex-col">
+      <h3 className="text-base font-semibold text-zinc-900 dark:text-white mb-2">
         {title}
       </h3>
-      <p className="text-sm text-zinc-700 dark:text-zinc-300 leading-relaxed mb-4">
+      <p className="text-sm text-zinc-500 dark:text-zinc-400 leading-relaxed mb-4 flex-1">
         {description}
       </p>
 
       {features && features.length > 0 && (
-        <div className="mb-4">
-          <h4 className="text-sm font-medium text-zinc-900 dark:text-white mb-2">
-            Key Features:
-          </h4>
-          <ul className="space-y-1">
-            {features.map((feature, idx) => (
-              <li
-                key={idx}
-                className="text-xs text-zinc-600 dark:text-zinc-400 flex items-center"
-              >
-                <span className="w-1 h-1 bg-brand rounded-full mr-2"></span>
-                {feature}
-              </li>
-            ))}
-          </ul>
-        </div>
+        <ul className="space-y-1 mb-4">
+          {features.map((feature, idx) => (
+            <li
+              key={idx}
+              className="text-xs text-zinc-400 dark:text-zinc-500 flex items-center gap-2"
+            >
+              <span className="w-1 h-1 rounded-full bg-brand flex-shrink-0" />
+              {feature}
+            </li>
+          ))}
+        </ul>
       )}
 
       {tech && tech.length > 0 && (
-        <div className="mb-4">
-          <ul className="flex flex-wrap gap-2">
-            {tech.map((t) => (
-              <li
-                key={t}
-                className="rounded-full bg-zinc-100 dark:bg-zinc-800 px-3 py-1 text-xs text-zinc-700 dark:text-zinc-300 font-medium"
-              >
-                {t}
-              </li>
-            ))}
-          </ul>
+        <div className="flex flex-wrap gap-1.5 mb-4">
+          {tech.map((t) => (
+            <span
+              key={t}
+              className="rounded-md bg-zinc-100 dark:bg-zinc-800 px-2 py-0.5 text-xs text-zinc-500 dark:text-zinc-400 font-mono"
+            >
+              {t}
+            </span>
+          ))}
         </div>
       )}
 
-      <div className="flex gap-3">
+      <div className="flex gap-4 pt-2 border-t border-zinc-100 dark:border-zinc-800">
         {link && (
           <a
-            className="flex items-center gap-2 text-sm text-zinc-600 dark:text-zinc-400 hover:text-brand transition-colors"
+            className="flex items-center gap-1.5 text-xs text-zinc-400 hover:text-brand transition-colors"
             href={link}
             target="_blank"
             rel="noreferrer"
           >
-            <FiGithub size={16} />
+            <FiGithub size={14} />
             Code
           </a>
         )}
         {liveLink && (
           <a
-            className="flex items-center gap-2 text-sm text-brand hover:opacity-80 transition-opacity"
+            className="flex items-center gap-1.5 text-xs text-brand hover:opacity-70 transition-opacity"
             href={liveLink}
             target="_blank"
             rel="noreferrer"
           >
-            <FiExternalLink size={16} />
+            <FiExternalLink size={14} />
             Live Demo
           </a>
         )}
