@@ -4,7 +4,7 @@ export default function MouseTrail() {
 	const canvasRef = useRef<HTMLCanvasElement | null>(null);
 	const particlesRef = useRef<Array<{ x: number; y: number; vx: number; vy: number; life: number; maxLife: number }>>([]);
 	const mouseRef = useRef({ x: 0, y: 0 });
-	const animationRef = useRef<number>();
+	const animationRef = useRef<number>(0);
 
 	useEffect(() => {
 		const canvas = canvasRef.current;
@@ -39,7 +39,7 @@ export default function MouseTrail() {
 				particle.y += particle.vy;
 				particle.life -= 0.06;
 				const alpha = particle.life;
-				ctx.fillStyle = `rgba(30, 102, 241, ${alpha * 0.1})`;
+				ctx.fillStyle = `rgba(92, 58, 40, ${alpha * 0.4})`;
 				ctx.beginPath();
 				ctx.arc(particle.x, particle.y, 3, 0, Math.PI * 2);
 				ctx.fill();
