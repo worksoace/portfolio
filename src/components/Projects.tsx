@@ -11,8 +11,8 @@ const projects = [
     liveLink: "",
     features: [
       "File Upload/Download",
-      "Simple REST endpoints",
-      "Lightweight Flask backend",
+      "REST API Endpoints",
+      "Lightweight Flask Backend",
     ],
   },
   {
@@ -25,7 +25,7 @@ const projects = [
     features: [
       "Question Management",
       "User Progress Tracking",
-      "Scoring & Results",
+      "Automated Scoring System",
     ],
   },
   {
@@ -35,15 +35,50 @@ const projects = [
     tech: ["JavaScript", "HTML", "CSS"],
     link: "https://github.com/worksoace/mouse-trainer",
     liveLink: "",
-    features: ["Aim Drills", "Performance Tracking", "Responsive UI"],
+    features: [
+      "Aim Training Drills",
+      "Performance Tracking",
+      "Responsive UI",
+    ],
   },
   {
     title: "Young and Salted",
     description:
       "Website for the NGO Young and Salted, focused on community projects and donations.",
-    tech: ["HTML", "CSS", "JavaScript"],
+    tech: ["React", "Tailwind CSS", "TypeScript", "JavaScript"],
+    link: "https://www.youngandsalted.org",
     liveLink: "https://www.youngandsalted.org",
-    features: ["NGO Website", "Donation Information", "Project Highlights"],
+    features: [
+      "NGO Website",
+      "Donation Information",
+      "Project Highlights",
+    ],
+  },
+  {
+    title: "Anazo Moments",
+    description:
+      "A wedding planning platform that connects vendors with clients for seamless event planning.",
+    tech: ["React", "Tailwind CSS", "TypeScript", "JavaScript"],
+    link: "https://github.com/worksoace/anazo-moments",
+    liveLink: "https://www.enazomoments.vercel.app",
+    features: [
+      "Vendor Marketplace",
+      "Client-Vendor Booking System",
+      "Wedding Planning Dashboard",
+    ],
+  },
+  {
+    title: "My Rabbai",
+    description:
+      "An educational platform built to help students prepare for SSCE and UTME examinations through practice tests and learning resources.",
+    tech: ["React", "Tailwind CSS", "TypeScript", "JavaScript"],
+    link: "https://myrabbai.tus-e.com",
+    liveLink: "https://myrabbai.tus-e.com",
+    features: [
+      "SSCE & UTME Preparation",
+      "Practice Questions & Mock Tests",
+      "Student Progress Tracking",
+    ],
   },
 ];
 
@@ -56,10 +91,11 @@ export default function Projects() {
       <div className="mx-auto max-w-2xl">
         <div className="text-center mb-12">
           <Reveal animation="fade-up" distance={30}>
-            <span className="text-brand font-mono text-xs tracking-[0.3em] uppercase mb-3 block">
+            <span className="text-brand font-mono text-xs tracking-[0.3em] uppercase block mb-3">
               &gt; portfolio
             </span>
           </Reveal>
+
           <Reveal animation="fade-up" distance={30} delayMs={100}>
             <h2 className="text-4xl font-bold text-zinc-900 dark:text-white">
               Featured Projects
@@ -68,21 +104,14 @@ export default function Projects() {
         </div>
 
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-          {projects.map((p, idx) => (
+          {projects.map((project, idx) => (
             <Reveal
-              key={p.title}
+              key={project.title}
               animation="fade-up"
               distance={30}
               delayMs={idx * 100}
             >
-              <ProjectCard
-                title={p.title}
-                description={p.description}
-                tech={p.tech}
-                link={p.link}
-                liveLink={p.liveLink}
-                features={p.features}
-              />
+              <ProjectCard {...project} />
             </Reveal>
           ))}
         </div>
