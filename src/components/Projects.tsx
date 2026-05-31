@@ -59,8 +59,8 @@ const projects = [
     description:
       "A wedding planning platform that connects vendors with clients for seamless event planning.",
     tech: ["React", "Tailwind CSS", "TypeScript", "JavaScript"],
-    link: "https://github.com/worksoace/anazo-moments",
-    liveLink: "https://www.enazomoments.vercel.app",
+    // link: "https://github.com/worksoace/anazo-moments",
+    liveLink: "https://www.enazo.vercel.app",
     features: [
       "Vendor Marketplace",
       "Client-Vendor Booking System",
