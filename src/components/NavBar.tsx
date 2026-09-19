@@ -63,8 +63,11 @@ export default function NavBar() {
           aria-label="Emmanuel Chijioke - Home"
         >
           <img
-            src="/EC.png"
+            src="/EC.webp"
             alt="Emmanuel Chijioke Logo"
+            width={32}
+            height={32}
+            decoding="async"
             className="w-7 h-7 sm:w-8 sm:h-8 rounded-full object-contain bg-white shadow-xs border border-zinc-200"
           />
           <span className="font-bold text-sm tracking-tight text-zinc-900 group-hover:text-zinc-600 transition-colors hidden sm:inline-block">

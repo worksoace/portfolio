@@ -1,5 +1,5 @@
 import { useState, useRef, useCallback } from "react";
-import asksPng from "../assets/asks.png";
+import asksWebp from "../assets/asks.webp";
 import { FaReact, FaPython } from "react-icons/fa";
 import { SiTypescript, SiElectron } from "react-icons/si";
 import { useColorMode } from "../context/ColorModeContext";
@@ -132,14 +132,17 @@ export default function HeroAvatar() {
         >
           {/* Base Portrait: Natural Real Photo in Color Mode, Crisp Black & White in B&W Mode */}
           <img
-            src={asksPng}
+            src={asksWebp}
             alt="Emmanuel Chijioke"
+            width={1200}
+            height={1200}
             className={`w-full h-full object-contain object-bottom drop-shadow-[0_15px_25px_rgba(0,0,0,0.18)] transition-all duration-500 ${
               isColorMode
                 ? "contrast-[1.02] brightness-[1.0]"
                 : "grayscale contrast-[1.12] brightness-[0.98]"
             }`}
             loading="eager"
+            decoding="async"
           />
 
           {/* Color Reveal Lens: in B&W mode, hover circumference dynamically clears B&W filter */}
@@ -154,9 +157,12 @@ export default function HeroAvatar() {
               }}
             >
               <img
-                src={asksPng}
+                src={asksWebp}
                 alt=""
                 aria-hidden="true"
+                width={1200}
+                height={1200}
+                decoding="async"
                 className="w-full h-full object-contain object-bottom saturate-[0.7] contrast-[1.04] brightness-[1.01]"
               />
             </div>

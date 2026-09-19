@@ -13,8 +13,11 @@ export default function Footer() {
         {/* Brand & Copyright */}
         <div className="flex items-center gap-2">
           <img
-            src="/EC.png"
+            src="/EC.webp"
             alt="Emmanuel Chijioke"
+            width={20}
+            height={20}
+            decoding="async"
             className="w-5 h-5 rounded-full object-contain bg-white shadow-2xs border border-zinc-200"
           />
           <span className="text-zinc-600">
