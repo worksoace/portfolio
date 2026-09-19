@@ -64,7 +64,7 @@ export default function Skills() {
 
   return (
     <section id="skills" className="section-block bg-white">
-      <div className="mx-auto max-w-6xl px-6 lg:px-12">
+      <div className="mx-auto max-w-6xl px-4 sm:px-6 lg:px-12">
         <div className="text-center max-w-2xl mx-auto mb-14">
           <Reveal animation="fade-up" distance={20}>
             <span className="text-zinc-500 font-mono text-xs tracking-[0.25em] uppercase mb-3 block font-semibold">

@@ -225,41 +225,41 @@ export default function Projects() {
   return (
     <section
       id="projects"
-      className="section-block bg-zinc-50/70 border-t border-zinc-200 overflow-hidden"
+      className="section-block bg-zinc-50/70 border-t border-zinc-200 overflow-hidden scroll-mt-20 pt-16 sm:pt-20 lg:pt-24"
     >
-      <div className="mx-auto max-w-6xl px-6 lg:px-12">
-        <div className="text-center max-w-2xl mx-auto mb-10">
+      <div className="mx-auto max-w-6xl px-4 sm:px-6 lg:px-12">
+        <div className="text-center max-w-2xl mx-auto mb-6 sm:mb-8">
           <Reveal animation="fade-up" distance={20}>
-            <span className="text-zinc-500 font-mono text-xs tracking-[0.25em] uppercase block mb-3 font-semibold">
+            <span className="text-zinc-500 font-mono text-xs tracking-[0.25em] uppercase block mb-1.5 sm:mb-2 font-semibold">
               &gt; PORTFOLIO &amp; WORK
             </span>
           </Reveal>
 
           <Reveal animation="fade-up" distance={20} delayMs={100}>
-            <h2 className="text-3xl sm:text-4xl font-bold text-zinc-950 tracking-tight mb-3">
+            <h2 className="text-2xl sm:text-4xl font-bold text-zinc-950 tracking-tight mb-2">
               Featured Projects
             </h2>
           </Reveal>
 
           <Reveal animation="fade-up" distance={20} delayMs={180}>
-            <p className="text-zinc-600 text-base leading-relaxed">
+            <p className="text-zinc-600 text-xs sm:text-sm leading-relaxed">
               Selected web applications, desktop software, and developer tools.
             </p>
           </Reveal>
         </div>
 
-        {/* Toolbar: Filter Tabs + Carousel Arrow Buttons */}
+        {/* Toolbar: Filter Tabs + Carousel Arrow Buttons on ONE SINGLE ROW */}
         <Reveal animation="fade-up" distance={20} delayMs={220}>
-          <div className="flex flex-col sm:flex-row items-center justify-between gap-4 mb-8">
+          <div className="flex items-center justify-between gap-2 mb-4 sm:mb-6 pb-3 border-b border-zinc-200">
             {/* Filter Tabs */}
-            <div className="flex flex-wrap items-center justify-center sm:justify-start gap-2">
+            <div className="flex items-center gap-1.5 overflow-x-auto no-scrollbar py-0.5">
               {categories.map((cat) => (
                 <button
                   key={cat}
                   onClick={() => setSelectedCategory(cat)}
-                  className={`px-4 py-1.5 rounded-full text-xs font-medium transition-all duration-200 ${
+                  className={`px-3 py-1 sm:px-4 sm:py-1.5 rounded-full text-[11px] sm:text-xs font-medium transition-all duration-150 shrink-0 ${
                     selectedCategory === cat
-                      ? "bg-zinc-950 text-white shadow-sm"
+                      ? "bg-zinc-950 text-white shadow-xs font-semibold scale-105"
                       : "bg-white text-zinc-600 border border-zinc-200 hover:text-zinc-950 hover:border-zinc-300"
                   }`}
                 >
@@ -269,29 +269,27 @@ export default function Projects() {
             </div>
 
             {/* Slider Navigation Arrows & Count */}
-            <div className="flex items-center gap-3">
-              <span className="text-xs font-mono text-zinc-400 hidden sm:inline-block">
+            <div className="flex items-center gap-1 shrink-0 ml-2">
+              <span className="text-[11px] font-mono text-zinc-400 mr-1 hidden sm:inline-block">
                 {filteredProjects.length} {filteredProjects.length === 1 ? "project" : "projects"}
               </span>
 
-              <div className="flex items-center gap-2">
-                <button
-                  onClick={() => handleScroll("left")}
-                  disabled={!canScrollLeft}
-                  aria-label="Previous project"
-                  className="w-9 h-9 rounded-full border border-zinc-200 bg-white flex items-center justify-center text-zinc-700 hover:text-zinc-950 hover:border-zinc-950 disabled:opacity-30 disabled:pointer-events-none transition-all shadow-xs"
-                >
-                  <FiChevronLeft size={18} />
-                </button>
-                <button
-                  onClick={() => handleScroll("right")}
-                  disabled={!canScrollRight}
-                  aria-label="Next project"
-                  className="w-9 h-9 rounded-full border border-zinc-200 bg-white flex items-center justify-center text-zinc-700 hover:text-zinc-950 hover:border-zinc-950 disabled:opacity-30 disabled:pointer-events-none transition-all shadow-xs"
-                >
-                  <FiChevronRight size={18} />
-                </button>
-              </div>
+              <button
+                onClick={() => handleScroll("left")}
+                disabled={!canScrollLeft}
+                aria-label="Previous project"
+                className="w-7 h-7 sm:w-8 sm:h-8 rounded-full border border-zinc-200 bg-white flex items-center justify-center text-zinc-700 hover:text-zinc-950 hover:border-zinc-950 disabled:opacity-30 disabled:pointer-events-none transition-all shadow-xs active:scale-95"
+              >
+                <FiChevronLeft size={16} />
+              </button>
+              <button
+                onClick={() => handleScroll("right")}
+                disabled={!canScrollRight}
+                aria-label="Next project"
+                className="w-7 h-7 sm:w-8 sm:h-8 rounded-full border border-zinc-200 bg-white flex items-center justify-center text-zinc-700 hover:text-zinc-950 hover:border-zinc-950 disabled:opacity-30 disabled:pointer-events-none transition-all shadow-xs active:scale-95"
+              >
+                <FiChevronRight size={16} />
+              </button>
             </div>
           </div>
         </Reveal>
@@ -300,12 +298,12 @@ export default function Projects() {
         <div
           ref={scrollRef}
           onScroll={checkScroll}
-          className="flex gap-6 overflow-x-auto snap-x snap-mandatory scroll-smooth pb-6 pt-2 no-scrollbar"
+          className="flex gap-4 sm:gap-6 overflow-x-auto snap-x snap-mandatory scroll-smooth pb-6 pt-2 no-scrollbar"
         >
           {filteredProjects.map((project) => (
             <div
               key={project.title}
-              className="w-[310px] sm:w-[360px] md:w-[380px] flex-shrink-0 snap-start flex flex-col"
+              className="w-[82vw] sm:w-[340px] md:w-[360px] max-w-[360px] flex-shrink-0 snap-start flex flex-col"
             >
               <ProjectCard {...project} />
             </div>
@@ -320,10 +318,10 @@ export default function Projects() {
           />
         </div>
 
-        {/* Swipe / Scroll Hint */}
-        <div className="flex items-center justify-between text-xs font-mono text-zinc-400 pt-3 border-t border-zinc-200/60 mt-2">
-          <span>← Drag or scroll to explore →</span>
-          <span className="sm:hidden">{filteredProjects.length} projects</span>
+        {/* Clean Swipe / Progress Indicator */}
+        <div className="flex items-center justify-between text-[11px] font-mono text-zinc-400 pt-2.5 border-t border-zinc-200/60 mt-1">
+          <span>← Swipe to explore →</span>
+          <span>{filteredProjects.length} projects</span>
         </div>
       </div>
     </section>

@@ -61,7 +61,7 @@ export default function HeroAvatar() {
       onMouseMove={handleMouseMove}
       onMouseEnter={handleMouseEnter}
       onMouseLeave={handleMouseLeave}
-      className="relative w-72 h-[380px] sm:w-88 sm:h-[430px] md:w-[400px] md:h-[470px] lg:w-[450px] lg:h-[510px] xl:w-[470px] xl:h-[530px] flex items-end justify-center select-none cursor-pointer [perspective:1000px] group outline-none"
+      className="relative w-[300px] h-[380px] xs:w-[330px] xs:h-[420px] sm:w-[380px] sm:h-[450px] md:w-[410px] md:h-[480px] lg:w-[450px] lg:h-[510px] xl:w-[470px] xl:h-[530px] flex items-end justify-center select-none cursor-pointer [perspective:1000px] group outline-none"
     >
       {/* Ambient Glow */}
       <div
@@ -166,9 +166,9 @@ export default function HeroAvatar() {
         {/* ========================================================= */}
         {/* FLOATING PARALLAX BADGES                                  */}
         {/* ========================================================= */}
-        {/* Badge 1: Frontend Dev */}
+        {/* Badge 1: Frontend Dev (hidden on mobile to prevent floating detached in whitespace) */}
         <div
-          className="absolute top-10 -left-2 sm:top-12 sm:-left-5 px-3 py-1.5 sm:px-4 sm:py-2 rounded-xl bg-white/95 backdrop-blur-md border border-zinc-200 shadow-lg flex items-center gap-2 text-xs sm:text-sm font-semibold text-zinc-900 [transform-style:preserve-3d]"
+          className="hidden sm:flex absolute top-10 -left-2 sm:top-12 sm:-left-5 px-3 py-1.5 sm:px-4 sm:py-2 rounded-xl bg-white/95 backdrop-blur-md border border-zinc-200 shadow-lg items-center gap-2 text-xs sm:text-sm font-semibold text-zinc-900 [transform-style:preserve-3d]"
           style={{
             transform: `translate3d(${-badgeTranslateX}px, ${-badgeTranslateY}px, 50px)`,
             transition: smoothTransition,
@@ -179,9 +179,9 @@ export default function HeroAvatar() {
           <span>Frontend Dev</span>
         </div>
 
-        {/* Badge 2: Full-Stack & Systems */}
+        {/* Badge 2: Full-Stack & Systems (hidden on mobile to prevent clipping) */}
         <div
-          className="absolute bottom-3 -right-2 sm:bottom-4 sm:-right-4 px-3 py-1.5 sm:px-4 sm:py-2 rounded-xl bg-white/95 backdrop-blur-md border border-zinc-200 shadow-lg flex items-center gap-2 text-xs sm:text-sm font-semibold text-zinc-900 [transform-style:preserve-3d]"
+          className="hidden sm:flex absolute bottom-3 -right-2 sm:bottom-4 sm:-right-4 px-3 py-1.5 sm:px-4 sm:py-2 rounded-xl bg-white/95 backdrop-blur-md border border-zinc-200 shadow-lg items-center gap-2 text-xs sm:text-sm font-semibold text-zinc-900 [transform-style:preserve-3d]"
           style={{
             transform: `translate3d(${badgeTranslateX}px, ${badgeTranslateY}px, 50px)`,
             transition: smoothTransition,
@@ -192,9 +192,9 @@ export default function HeroAvatar() {
           <span>Full-Stack &amp; Systems</span>
         </div>
 
-        {/* Badge 3: Experience Pill */}
+        {/* Badge 3: Experience Pill (snug against box edge on mobile) */}
         <div
-          className="absolute bottom-[38%] -right-3 sm:-right-6 px-3 py-1.5 sm:px-4 sm:py-2 rounded-full bg-zinc-950 text-white text-xs sm:text-sm font-mono font-bold shadow-xl shadow-zinc-950/20 [transform-style:preserve-3d]"
+          className="absolute bottom-[40%] -right-1 sm:-right-6 px-3 py-1 sm:px-4 sm:py-2 rounded-full bg-zinc-950 text-white text-xs sm:text-sm font-mono font-bold shadow-xl shadow-zinc-950/20 [transform-style:preserve-3d]"
           style={{
             transform: `translate3d(${badgeTranslateX * 0.8}px, ${badgeTranslateY * 0.8}px, 60px)`,
             transition: smoothTransition,
