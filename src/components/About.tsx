@@ -121,7 +121,7 @@ export default function About() {
             <Reveal animation="fade-up" distance={20} delayMs={200}>
               <div
                 ref={statsRef}
-                className="rounded-2xl border border-zinc-200/80 bg-white/90 backdrop-blur-xs p-4 sm:p-7 shadow-xs"
+                className="highlights-card rounded-2xl border border-zinc-200/80 bg-white p-4 sm:p-7 shadow-xs"
               >
                 <div className="text-[11px] sm:text-xs font-mono text-zinc-400 uppercase tracking-wider mb-2 sm:mb-4 pb-1.5 sm:pb-2 border-b border-zinc-100 font-semibold">
                   Highlights

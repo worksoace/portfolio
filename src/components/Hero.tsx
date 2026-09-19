@@ -55,10 +55,8 @@ export default function Hero() {
   return (
     <section
       id="home"
-      className="relative min-h-screen lg:min-h-[92vh] flex flex-col justify-start lg:justify-center pt-16 sm:pt-20 lg:pt-28 pb-10 sm:pb-16 px-4 sm:px-6 lg:px-12 overflow-hidden bg-white"
+      className="relative min-h-screen lg:min-h-[92vh] flex flex-col justify-start lg:justify-center pt-16 sm:pt-20 lg:pt-28 pb-10 sm:pb-16 px-4 sm:px-6 lg:px-12 overflow-hidden bg-transparent"
     >
-      {/* Atmospheric subtle ambient glow */}
-      <div className="pointer-events-none absolute top-10 left-1/2 -translate-x-1/2 w-[800px] h-[500px] rounded-full bg-gradient-to-b from-zinc-200/40 via-zinc-100/20 to-transparent blur-3xl -z-10" />
 
       <div className="mx-auto max-w-6xl w-full grid grid-cols-1 lg:grid-cols-12 gap-5 sm:gap-8 lg:gap-10 items-center my-0 lg:my-auto">
         {/* Avatar Column: 3D Pop-Out Avatar (On top on mobile, right on desktop) */}
@@ -72,10 +70,10 @@ export default function Hero() {
         <div className="lg:col-span-6 flex flex-col items-center lg:items-start text-center lg:text-left order-2 lg:order-1">
           {/* Status Badge - B/W with local timezone */}
           <Reveal animation="fade-up" distance={20}>
-            <div className="inline-flex items-center gap-2 px-3 py-1 sm:px-3.5 sm:py-1.5 rounded-full border border-zinc-300 bg-zinc-100/80 text-zinc-900 text-[11px] sm:text-xs font-mono font-medium mb-3 sm:mb-5 shadow-xs max-w-full truncate">
+            <div className="inline-flex items-center gap-2 px-3 py-1 sm:px-3.5 sm:py-1.5 rounded-full border border-zinc-300 dark:border-zinc-700 bg-zinc-100/80 dark:bg-[#18181b] text-zinc-900 dark:text-zinc-200 text-[11px] sm:text-xs font-mono font-medium mb-3 sm:mb-5 shadow-xs max-w-full truncate">
               <span className="relative flex h-2 w-2 shrink-0">
                 <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-zinc-400 opacity-75" />
-                <span className="relative inline-flex rounded-full h-2 w-2 bg-zinc-950" />
+                <span className="relative inline-flex rounded-full h-2 w-2 bg-zinc-950 dark:bg-white" />
               </span>
               <span className="truncate">Available for roles · Nsukka (UTC+1)</span>
             </div>
@@ -113,24 +111,24 @@ export default function Hero() {
             <div className="flex flex-wrap gap-2.5 sm:gap-3 justify-center lg:justify-start items-center mb-5 sm:mb-7 w-full">
               <a
                 href="#projects"
-                className="inline-flex items-center justify-center gap-2 px-5 py-2.5 sm:px-6 sm:py-3 bg-zinc-950 text-white font-semibold text-xs sm:text-sm rounded-xl hover:bg-black shadow-md shadow-zinc-950/15 hover:shadow-lg transition-all transform hover:-translate-y-0.5 active:scale-95"
+                className="btn-primary inline-flex items-center justify-center gap-2 px-5 py-2.5 sm:px-6 sm:py-3 bg-zinc-950 text-white font-semibold text-xs sm:text-sm rounded-xl hover:bg-black shadow-md shadow-zinc-950/15 hover:shadow-lg transition-all transform hover:-translate-y-0.5 active:scale-95"
               >
                 <span>View My Work</span>
                 <FiArrowRight size={14} />
               </a>
               <a
                 href="#contact"
-                className="inline-flex items-center justify-center gap-2 px-5 py-2.5 sm:px-6 sm:py-3 border border-zinc-300 bg-white text-zinc-900 font-medium text-xs sm:text-sm rounded-xl hover:border-zinc-950 transition-all shadow-xs hover:shadow active:scale-95"
+                className="btn-outline inline-flex items-center justify-center gap-2 px-5 py-2.5 sm:px-6 sm:py-3 border border-zinc-300 dark:border-zinc-700 bg-white dark:bg-[#18181b] text-zinc-900 dark:text-white font-medium text-xs sm:text-sm rounded-xl hover:border-zinc-950 dark:hover:border-white transition-all shadow-xs hover:shadow active:scale-95"
               >
                 <FiMail size={14} />
                 <span>Contact Me</span>
               </a>
               <button
                 onClick={handleCopyEmail}
-                className="hidden sm:inline-flex items-center justify-center gap-1.5 px-3.5 py-2.5 sm:px-4 sm:py-3 border border-zinc-200 bg-zinc-50 text-zinc-700 hover:text-zinc-950 hover:bg-zinc-100 rounded-xl text-xs font-mono font-medium transition-all shadow-xs active:scale-95"
+                className="hidden sm:inline-flex items-center justify-center gap-1.5 px-3.5 py-2.5 sm:px-4 sm:py-3 border border-zinc-200 dark:border-zinc-700 bg-zinc-50 dark:bg-[#18181b] text-zinc-700 dark:text-white hover:text-zinc-950 dark:hover:text-white hover:bg-zinc-100 dark:hover:bg-zinc-800 rounded-xl text-xs font-mono font-medium transition-all shadow-xs active:scale-95"
                 aria-label="Copy email address"
               >
-                {copied ? <FiCheck size={13} className="text-zinc-950" /> : <FiCopy size={13} />}
+                {copied ? <FiCheck size={13} className="text-zinc-950 dark:text-white" /> : <FiCopy size={13} />}
                 <span>{copied ? "Copied!" : "Copy Email"}</span>
               </button>
             </div>
@@ -143,7 +141,7 @@ export default function Hero() {
               {["React", "TypeScript", "Tailwind", "Python", "Electron"].map((t) => (
                 <span
                   key={t}
-                  className="px-2.5 py-1 text-[11px] sm:text-xs rounded-md bg-zinc-100/90 border border-zinc-200 text-zinc-800 font-medium shadow-2xs"
+                  className="px-2.5 py-1 text-[11px] sm:text-xs rounded-md bg-zinc-100/90 dark:bg-[#18181b] border border-zinc-200 dark:border-zinc-700 text-zinc-800 dark:text-zinc-200 font-medium shadow-2xs"
                 >
                   {t}
                 </span>

@@ -18,9 +18,6 @@ function AppContent() {
   const { isColorMode } = useColorMode();
 
   useEffect(() => {
-    document.documentElement.classList.remove("dark");
-    localStorage.removeItem("theme");
-
     const handleScroll = () => {
       const totalScroll = document.documentElement.scrollHeight - window.innerHeight;
       if (totalScroll > 0) {
@@ -37,8 +34,8 @@ function AppContent() {
     <div className={`relative min-h-screen bg-white text-zinc-900 transition-colors duration-500 ${isColorMode ? "color-mode-active" : ""}`}>
       {/* Top Reading Progress Bar */}
       <div
-        className={`fixed top-0 left-0 h-[2.5px] z-50 transition-all duration-75 ${
-          isColorMode ? "bg-blue-600" : "bg-zinc-950"
+        className={`top-reading-bar fixed top-0 left-0 h-[2.5px] z-50 transition-all duration-75 ${
+          isColorMode ? "bg-white shadow-[0_0_8px_rgba(255,255,255,0.6)]" : "bg-zinc-950"
         }`}
         style={{ width: `${scrollProgress}%` }}
         aria-hidden="true"

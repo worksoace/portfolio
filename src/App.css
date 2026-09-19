@@ -124,38 +124,480 @@
 }
 
 /* ==========================================================================
-   COLOR MODE THEME (EASTER EGG TOGGLED VIA PROFILE CLICK)
+   BLACK & WHITE DARK MODE (TOGGLED VIA PROFILE CLICK)
+   Pure monochromatic, high-contrast, modern Black & White Dark Mode.
+   Deep blacks (#09090b / #0f0f12), pure white headings (#ffffff),
+   crisp zinc text (#a1a1aa), stark white primary buttons with black text,
+   solid card surfaces (#141418), sharp hairline borders (#27272a).
+   NO GRADIENTS - purely solid, architectural, modern aesthetics.
    ========================================================================== */
 
-/* Selection highlight */
-.color-mode ::selection {
-  background-color: #2563eb;
-  color: #ffffff;
+/* Page & Body: Overall #121212 Background */
+.dark,
+.dark body,
+.dark #root,
+.dark .min-h-screen,
+.color-mode,
+.color-mode body,
+.color-mode #root,
+.color-mode .min-h-screen {
+  background-color: #121212 !important;
+  color: #f4f4f5 !important;
 }
 
-/* Smooth transition for color transformations */
-.color-mode *,
-html:not(.color-mode) * {
-  transition-property: color, background-color, border-color, text-decoration-color, fill, stroke;
-  transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
-  transition-duration: 300ms;
+/* Sections: Hero is transparent so MoleculesBackground is completely visible */
+section#home {
+  background-color: transparent !important;
 }
 
-/* Tasteful subtle navigation active accent */
+.dark section#home,
+.color-mode section#home {
+  background-color: transparent !important;
+}
+
+.dark section#experience,
+.dark section#skills,
+.dark footer,
+.color-mode section#experience,
+.color-mode section#skills,
+.color-mode footer {
+  background-color: #121212 !important;
+}
+
+.dark section#about,
+.dark section#projects,
+.dark section#contact,
+.color-mode section#about,
+.color-mode section#projects,
+.color-mode section#contact {
+  background-color: #161616 !important;
+}
+
+/* Top Reading Progress Bar: Pure White in Dark Mode */
+.dark .top-reading-bar,
+.color-mode .top-reading-bar {
+  background-color: #ffffff !important;
+  box-shadow: 0 0 10px rgba(255, 255, 255, 0.8) !important;
+}
+
+/* Carousel Scroll Progress Bar */
+.dark .bg-zinc-200\/80,
+.color-mode .bg-zinc-200\/80 {
+  background-color: #2c2c2c !important;
+}
+
+/* Cards, Articles, Boxes & Containers (matching #121212 aesthetic) */
+.dark .highlights-card,
+.dark .bg-white,
+.dark .bg-white\/95,
+.dark .bg-white\/90,
+.dark .bg-white\/85,
+.dark .bg-white\/80,
+.dark .bg-white\/70,
+.dark [class*="bg-white\/"],
+.dark article,
+.dark .rounded-2xl.bg-white,
+.dark form .bg-white,
+.color-mode .highlights-card,
+.color-mode .bg-white,
+.color-mode .bg-white\/95,
+.color-mode .bg-white\/90,
+.color-mode .bg-white\/85,
+.color-mode .bg-white\/80,
+.color-mode .bg-white\/70,
+.color-mode [class*="bg-white\/"],
+.color-mode article,
+.color-mode .rounded-2xl.bg-white,
+.color-mode form .bg-white {
+  background-color: #1c1c1c !important;
+  border-color: #2c2c2c !important;
+}
+
+/* Alternate light background tints flipped to subtle dark */
+.dark .bg-zinc-50,
+.dark .bg-zinc-50\/60,
+.dark .bg-zinc-50\/70,
+.dark .bg-zinc-50\/80,
+.dark .bg-zinc-50\/90,
+.color-mode .bg-zinc-50,
+.color-mode .bg-zinc-50\/60,
+.color-mode .bg-zinc-50\/70,
+.color-mode .bg-zinc-50\/80,
+.color-mode .bg-zinc-50\/90 {
+  background-color: #161616 !important;
+}
+
+/* General Text Colors: Monochromatic White, Zinc-300, and Zinc-400 */
+
+/* Text Colors: Monochromatic White, Zinc-300, and Zinc-400 */
+.dark .text-zinc-950,
+.dark .text-zinc-900,
+.dark .text-zinc-800,
+.dark .text-black,
+.color-mode .text-zinc-950,
+.color-mode .text-zinc-900,
+.color-mode .text-zinc-800,
+.color-mode .text-black {
+  color: #ffffff !important;
+}
+
+.dark .text-zinc-700,
+.dark .text-zinc-600,
+.color-mode .text-zinc-700,
+.color-mode .text-zinc-600 {
+  color: #a1a1aa !important;
+}
+
+.dark .text-zinc-500,
+.dark .text-zinc-400,
+.color-mode .text-zinc-500,
+.color-mode .text-zinc-400 {
+  color: #71717a !important;
+}
+
+.dark .text-white,
+.color-mode .text-white {
+  color: #ffffff !important;
+}
+
+/* Accents & Icons */
+.dark .text-blue-accent,
+.dark .text-zinc-950 svg,
+.dark svg.text-zinc-950,
+.color-mode .text-blue-accent,
+.color-mode .text-zinc-950 svg,
+.color-mode svg.text-zinc-950 {
+  color: #ffffff !important;
+}
+
+/* Status Indicator Dot: Pure White */
+.dark .bg-zinc-950.rounded-full,
+.color-mode .bg-zinc-950.rounded-full {
+  background-color: #ffffff !important;
+}
+
+/* Borders: Crisp Zinc Hairlines */
+.dark .border-zinc-100,
+.dark .border-zinc-200,
+.dark .border-zinc-200\/60,
+.dark .border-zinc-200\/80,
+.dark .border-zinc-200\/90,
+.dark .border-zinc-300,
+.color-mode .border-zinc-100,
+.color-mode .border-zinc-200,
+.color-mode .border-zinc-200\/60,
+.color-mode .border-zinc-200\/80,
+.color-mode .border-zinc-200\/90,
+.color-mode .border-zinc-300 {
+  border-color: #27272a !important;
+}
+
+.dark .border-zinc-950,
+.dark .border-black,
+.color-mode .border-zinc-950,
+.color-mode .border-black {
+  border-color: #ffffff !important;
+}
+
+.dark .hover\:border-zinc-950:hover,
+.color-mode .hover\:border-zinc-950:hover {
+  border-color: #ffffff !important;
+}
+
+/* ==========================================================================
+   BUTTONS & CTAS: EXPLICIT HIGH CONTRAST IN DARK MODE
+   Primary buttons: Solid pure White with Solid Black text and icons
+   Secondary buttons: Solid dark #18181b with Solid White text & border
+   ========================================================================== */
+
+/* Primary Buttons: High-Contrast Solid White with Pure Black text & icons */
+.dark .btn-primary,
+.dark a.btn-primary,
+.dark button.btn-primary,
+.dark a.bg-zinc-950,
+.dark button.bg-zinc-950,
+.dark [class*="bg-zinc-950"],
+.dark .bg-black,
+.dark form button[type="submit"],
+.color-mode .btn-primary,
+.color-mode a.btn-primary,
+.color-mode button.btn-primary,
+.color-mode a.bg-zinc-950,
+.color-mode button.bg-zinc-950,
+.color-mode [class*="bg-zinc-950"],
+.color-mode .bg-black,
+.color-mode form button[type="submit"] {
+  background-color: #ffffff !important;
+  border-color: #ffffff !important;
+  color: #09090b !important;
+}
+
+/* Force all contents inside primary buttons (text, span, svg, icons) to pure black */
+.dark .btn-primary *,
+.dark a.btn-primary *,
+.dark button.btn-primary *,
+.dark a.bg-zinc-950 *,
+.dark button.bg-zinc-950 *,
+.dark [class*="bg-zinc-950"] *,
+.dark .bg-black *,
+.dark form button[type="submit"] *,
+.color-mode .btn-primary *,
+.color-mode a.btn-primary *,
+.color-mode button.btn-primary *,
+.color-mode a.bg-zinc-950 *,
+.color-mode button.bg-zinc-950 *,
+.color-mode [class*="bg-zinc-950"] *,
+.color-mode .bg-black *,
+.color-mode form button[type="submit"] * {
+  color: #09090b !important;
+  fill: #09090b !important;
+  stroke: #09090b !important;
+}
+
+/* Primary Button Hover: Off-white with pure black text */
+.dark .btn-primary:hover,
+.dark a.btn-primary:hover,
+.dark button.btn-primary:hover,
+.dark a.bg-zinc-950:hover,
+.dark button.bg-zinc-950:hover,
+.dark [class*="bg-zinc-950"]:hover,
+.dark form button[type="submit"]:hover,
+.color-mode .btn-primary:hover,
+.color-mode a.btn-primary:hover,
+.color-mode button.btn-primary:hover,
+.color-mode a.bg-zinc-950:hover,
+.color-mode button.bg-zinc-950:hover,
+.color-mode [class*="bg-zinc-950"]:hover,
+.color-mode form button[type="submit"]:hover {
+  background-color: #e4e4e7 !important;
+  color: #09090b !important;
+}
+
+.dark .btn-primary:hover *,
+.dark a.btn-primary:hover *,
+.dark button.btn-primary:hover *,
+.dark a.bg-zinc-950:hover *,
+.dark button.bg-zinc-950:hover *,
+.color-mode .btn-primary:hover *,
+.color-mode a.btn-primary:hover *,
+.color-mode button.btn-primary:hover *,
+.color-mode a.bg-zinc-950:hover *,
+.color-mode button.bg-zinc-950:hover * {
+  color: #09090b !important;
+  fill: #09090b !important;
+  stroke: #09090b !important;
+}
+
+/* Secondary & Outline Buttons: Crisp Dark Surface with Solid White Text & Visible Border */
+.dark .btn-outline,
+.dark a[href="#contact"].border,
+.dark button[aria-label="Copy email address"],
+.dark button[aria-label="Back to top"],
+.dark .group\/btn,
+.color-mode .btn-outline,
+.color-mode a[href="#contact"].border,
+.color-mode button[aria-label="Copy email address"],
+.color-mode button[aria-label="Back to top"],
+.color-mode .group\/btn {
+  background-color: #18181b !important;
+  border-color: #3f3f46 !important;
+  color: #ffffff !important;
+}
+
+.dark .btn-outline *,
+.dark a[href="#contact"].border *,
+.dark button[aria-label="Copy email address"] *,
+.dark button[aria-label="Back to top"] *,
+.dark .group\/btn *,
+.color-mode .btn-outline *,
+.color-mode a[href="#contact"].border *,
+.color-mode button[aria-label="Copy email address"] *,
+.color-mode button[aria-label="Back to top"] *,
+.color-mode .group\/btn * {
+  color: #ffffff !important;
+  fill: #ffffff !important;
+  stroke: #ffffff !important;
+}
+
+.dark .btn-outline:hover,
+.dark a[href="#contact"].border:hover,
+.dark button[aria-label="Copy email address"]:hover,
+.dark button[aria-label="Back to top"]:hover,
+.dark .group\/btn:hover,
+.color-mode .btn-outline:hover,
+.color-mode a[href="#contact"].border:hover,
+.color-mode button[aria-label="Copy email address"]:hover,
+.color-mode button[aria-label="Back to top"]:hover,
+.color-mode .group\/btn:hover {
+  background-color: #27272a !important;
+  border-color: #ffffff !important;
+  color: #ffffff !important;
+}
+
+/* Active Category Filter Tabs: Solid White with Black text */
+.dark .active-tab,
+.dark button.bg-zinc-950,
+.color-mode .active-tab,
+.color-mode button.bg-zinc-950 {
+  background-color: #ffffff !important;
+  border-color: #ffffff !important;
+  color: #09090b !important;
+}
+
+.dark .active-tab *,
+.dark button.bg-zinc-950 *,
+.color-mode .active-tab *,
+.color-mode button.bg-zinc-950 * {
+  color: #09090b !important;
+  fill: #09090b !important;
+}
+
+/* Inactive Filter Tabs: Dark with Light Zinc text */
+.dark button.bg-white,
+.dark button.bg-zinc-100,
+.color-mode button.bg-white,
+.color-mode button.bg-zinc-100 {
+  background-color: #18181b !important;
+  border-color: #3f3f46 !important;
+  color: #e4e4e7 !important;
+}
+
+.dark button.bg-white:hover,
+.dark button.bg-zinc-100:hover,
+.color-mode button.bg-white:hover,
+.color-mode button.bg-zinc-100:hover {
+  background-color: #27272a !important;
+  border-color: #ffffff !important;
+  color: #ffffff !important;
+}
+
+/* Prev/Next Carousel Chevron Buttons */
+.dark button[aria-label*="project"],
+.dark button[aria-label*="experience"],
+.color-mode button[aria-label*="project"],
+.color-mode button[aria-label*="experience"] {
+  background-color: #18181b !important;
+  border-color: #3f3f46 !important;
+  color: #ffffff !important;
+}
+
+.dark button[aria-label*="project"] *,
+.dark button[aria-label*="experience"] *,
+.color-mode button[aria-label*="project"] *,
+.color-mode button[aria-label*="experience"] * {
+  color: #ffffff !important;
+}
+
+/* Hero Avatar Badges */
+.dark [data-avatar-badge],
+.color-mode [data-avatar-badge] {
+  background-color: rgba(24, 24, 27, 0.95) !important;
+  border-color: #3f3f46 !important;
+  color: #ffffff !important;
+}
+
+.dark [data-avatar-badge] *,
+.color-mode [data-avatar-badge] * {
+  color: #ffffff !important;
+}
+
+/* NO GRADIENTS: Remove all background gradients */
+.dark [class*="bg-gradient-"],
+.dark .bg-gradient-to-r,
+.dark .bg-gradient-to-b,
+.dark .bg-gradient-to-tr,
+.dark .bg-gradient-to-t,
+.color-mode [class*="bg-gradient-"],
+.color-mode .bg-gradient-to-r,
+.color-mode .bg-gradient-to-b,
+.color-mode .bg-gradient-to-tr,
+.color-mode .bg-gradient-to-t {
+  background-image: none !important;
+}
+
+/* Main Heading: Solid Pure White (No Gradient Clip) */
+.dark .text-transparent.bg-clip-text,
+.color-mode .text-transparent.bg-clip-text {
+  color: #ffffff !important;
+  -webkit-text-fill-color: #ffffff !important;
+  background: none !important;
+}
+
+/* Navigation Bar */
+.dark nav,
+.color-mode nav {
+  background-color: rgba(18, 18, 18, 0.94) !important;
+  border-color: #2c2c2c !important;
+  box-shadow: 0 4px 20px -2px rgba(0, 0, 0, 0.5) !important;
+}
+
+.dark .nav-partial-underline::before,
+.dark .nav-partial-underline::after,
 .color-mode .nav-partial-underline::before,
 .color-mode .nav-partial-underline::after {
-  background-color: #2563eb !important;
+  background-color: #ffffff !important;
 }
 
+.dark .nav-partial-underline.active,
 .color-mode .nav-partial-underline.active {
-  color: #2563eb !important;
+  color: #ffffff !important;
 }
 
-/* Subtle focus accent */
+.dark .hover\:text-zinc-950:hover,
+.color-mode .hover\:text-zinc-950:hover {
+  color: #ffffff !important;
+}
+
+/* Form Inputs & Textareas */
+.dark input,
+.dark textarea,
+.color-mode input,
+.color-mode textarea {
+  background-color: #1c1c1c !important;
+  border-color: #2c2c2c !important;
+  color: #ffffff !important;
+}
+
+.dark input::placeholder,
+.dark textarea::placeholder,
+.color-mode input::placeholder,
+.color-mode textarea::placeholder {
+  color: #71717a !important;
+}
+
+.dark input:focus,
+.dark textarea:focus,
 .color-mode input:focus,
 .color-mode textarea:focus {
-  border-color: #2563eb !important;
-  box-shadow: 0 0 0 2px rgba(37, 99, 235, 0.12) !important;
+  border-color: #ffffff !important;
+  box-shadow: 0 0 0 2px rgba(255, 255, 255, 0.15) !important;
 }
+
+/* Tech Badges & Tags */
+.dark span.bg-zinc-100,
+.color-mode span.bg-zinc-100 {
+  background-color: #1c1c20 !important;
+  border-color: #2e2e34 !important;
+  color: #e4e4e7 !important;
+}
+
+/* Selection Highlight: Pure White background with Black text */
+.dark ::selection,
+.color-mode ::selection {
+  background-color: #ffffff !important;
+  color: #09090b !important;
+}
+
+/* Smooth Theme Transitions across the DOM */
+.dark,
+.dark *,
+.color-mode,
+.color-mode *,
+html:not(.dark) * {
+  transition-property: color, background-color, border-color, fill, stroke;
+  transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+  transition-duration: 200ms;
+}
+
 
 

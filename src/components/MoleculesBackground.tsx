@@ -1,4 +1,5 @@
 import { useEffect, useRef } from "react";
+import { useColorMode } from "../context/ColorModeContext";
 
 interface Node {
   x: number;
@@ -10,6 +11,12 @@ interface Node {
 
 export default function MoleculesBackground() {
   const canvasRef = useRef<HTMLCanvasElement | null>(null);
+  const { isColorMode } = useColorMode();
+  const isColorModeRef = useRef(isColorMode);
+
+  useEffect(() => {
+    isColorModeRef.current = isColorMode;
+  }, [isColorMode]);
 
   useEffect(() => {
     const canvas = canvasRef.current;
@@ -38,7 +45,7 @@ export default function MoleculesBackground() {
     const maxDistance = 140;
 
     const initNodes = () => {
-      const nodeCount = Math.min(Math.floor((width * height) / 22000), 55);
+      const nodeCount = Math.min(Math.max(Math.floor((width * height) / 16000), 45), 70);
       nodes = [];
       for (let i = 0; i < nodeCount; i++) {
         nodes.push({
@@ -56,7 +63,10 @@ export default function MoleculesBackground() {
     const render = () => {
       ctx.clearRect(0, 0, width, height);
 
-      // Update and draw nodes
+      const isDark = isColorModeRef.current;
+      const baseRgb = isDark ? "255, 255, 255" : "24, 24, 27";
+
+      // Update and draw nodes - TRANSPARENT
       for (let i = 0; i < nodes.length; i++) {
         const node = nodes[i];
 
@@ -68,13 +78,13 @@ export default function MoleculesBackground() {
         if (node.x < 0 || node.x > width) node.vx *= -1;
         if (node.y < 0 || node.y > height) node.vy *= -1;
 
-        // Draw node
+        // Draw node - soft, transparent particle
         ctx.beginPath();
         ctx.arc(node.x, node.y, node.radius, 0, Math.PI * 2);
-        ctx.fillStyle = "rgba(24, 24, 27, 0.18)";
+        ctx.fillStyle = `rgba(${baseRgb}, ${isDark ? 0.22 : 0.16})`;
         ctx.fill();
 
-        // Connect with other nodes
+        // Connect with other nodes - subtle, delicate transparent lines
         for (let j = i + 1; j < nodes.length; j++) {
           const other = nodes[j];
           const dx = other.x - node.x;
@@ -82,27 +92,27 @@ export default function MoleculesBackground() {
           const dist = Math.sqrt(dx * dx + dy * dy);
 
           if (dist < maxDistance) {
-            const alpha = (1 - dist / maxDistance) * 0.08;
+            const alpha = (1 - dist / maxDistance) * (isDark ? 0.10 : 0.07);
             ctx.beginPath();
             ctx.moveTo(node.x, node.y);
             ctx.lineTo(other.x, other.y);
-            ctx.strokeStyle = `rgba(24, 24, 27, ${alpha})`;
+            ctx.strokeStyle = `rgba(${baseRgb}, ${alpha})`;
             ctx.lineWidth = 0.8;
             ctx.stroke();
           }
         }
 
-        // Connect gently with mouse
+        // Connect with mouse cursor - soft transparent interactive response
         const mouseDx = mouse.x - node.x;
         const mouseDy = mouse.y - node.y;
         const mouseDist = Math.sqrt(mouseDx * mouseDx + mouseDy * mouseDy);
-        if (mouseDist < 160) {
-          const alpha = (1 - mouseDist / 160) * 0.12;
+        if (mouseDist < 170) {
+          const alpha = (1 - mouseDist / 170) * (isDark ? 0.16 : 0.12);
           ctx.beginPath();
           ctx.moveTo(node.x, node.y);
           ctx.lineTo(mouse.x, mouse.y);
-          ctx.strokeStyle = `rgba(24, 24, 27, ${alpha})`;
-          ctx.lineWidth = 1;
+          ctx.strokeStyle = `rgba(${baseRgb}, ${alpha})`;
+          ctx.lineWidth = 0.9;
           ctx.stroke();
         }
       }
@@ -126,7 +136,7 @@ export default function MoleculesBackground() {
     <canvas
       ref={canvasRef}
       className="fixed inset-0 pointer-events-none z-0"
-      style={{ opacity: 0.9 }}
+      style={{ opacity: 0.85 }}
       aria-hidden="true"
     />
   );

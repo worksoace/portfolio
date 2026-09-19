@@ -119,7 +119,7 @@ export default function Skills() {
                             className="flex items-center gap-2.5 px-3 py-2.5 rounded-xl border border-zinc-200 bg-white text-xs font-medium text-zinc-800 hover:border-zinc-950 hover:text-zinc-950 transition-all duration-200 shadow-xs group"
                           >
                             <span className={`text-base group-hover:scale-110 transition-transform duration-200 ${
-                              isColorMode ? skill.brandColor : "text-zinc-950"
+                              isColorMode ? "text-white" : "text-zinc-950"
                             }`}>
                               <SkillIcon />
                             </span>

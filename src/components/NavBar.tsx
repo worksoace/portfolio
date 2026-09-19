@@ -101,7 +101,7 @@ export default function NavBar() {
           <a
             href="#contact"
             onClick={(e) => handleNavClick(e, "contact")}
-            className="inline-flex items-center px-4 py-1.5 rounded-full bg-zinc-950 text-white font-medium text-xs hover:bg-black transition-colors active:scale-95 shadow-xs"
+            className="btn-primary inline-flex items-center px-4 py-1.5 rounded-full bg-zinc-950 text-white font-medium text-xs hover:bg-black transition-colors active:scale-95 shadow-xs"
           >
             Let's Talk
           </a>

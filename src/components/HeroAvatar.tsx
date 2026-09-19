@@ -8,7 +8,6 @@ export default function HeroAvatar() {
   const containerRef = useRef<HTMLDivElement>(null);
   const { isColorMode, toggleColorMode } = useColorMode();
   const [coords, setCoords] = useState({ x: 0, y: 0 });
-  const [mousePos, setMousePos] = useState({ x: 50, y: 50 });
   const [isHovered, setIsHovered] = useState(false);
 
   const handleMouseMove = useCallback((e: React.MouseEvent<HTMLDivElement>) => {
@@ -17,10 +16,6 @@ export default function HeroAvatar() {
     const x = (e.clientX - rect.left) / rect.width - 0.5; // range: -0.5 to 0.5
     const y = (e.clientY - rect.top) / rect.height - 0.5; // range: -0.5 to 0.5
     setCoords({ x, y });
-    setMousePos({
-      x: ((e.clientX - rect.left) / rect.width) * 100,
-      y: ((e.clientY - rect.top) / rect.height) * 100,
-    });
   }, []);
 
   const handleMouseEnter = useCallback(() => {
@@ -57,7 +52,7 @@ export default function HeroAvatar() {
       }}
       role="button"
       tabIndex={0}
-      aria-label={isColorMode ? "Switch site to Black and White mode" : "Switch site to Full Color mode"}
+      aria-label={isColorMode ? "Switch to Light mode" : "Switch to Dark mode"}
       onMouseMove={handleMouseMove}
       onMouseEnter={handleMouseEnter}
       onMouseLeave={handleMouseLeave}
@@ -67,8 +62,8 @@ export default function HeroAvatar() {
       <div
         className={`absolute inset-x-4 bottom-2 h-[55%] rounded-2xl blur-3xl -z-10 transition-all duration-700 ${
           isColorMode
-            ? "bg-gradient-to-tr from-blue-500/15 via-indigo-500/10 to-transparent"
-            : "bg-gradient-to-tr from-zinc-200/50 via-zinc-100/30 to-transparent"
+            ? "bg-white/5"
+            : "bg-zinc-200/50"
         }`}
         style={{
           transform: `translate3d(${coords.x * 10}px, ${coords.y * 10}px, 0)`,
@@ -78,7 +73,9 @@ export default function HeroAvatar() {
 
       {/* Decorative Outer Dashed Box Frame */}
       <div
-        className="absolute inset-x-0 bottom-0 w-full h-[48%] border border-dashed border-zinc-300/70 pointer-events-none -z-10"
+        className={`absolute inset-x-0 bottom-0 w-full h-[48%] border border-dashed pointer-events-none -z-10 transition-colors duration-300 ${
+          isColorMode ? "border-zinc-700/60" : "border-zinc-300/70"
+        }`}
         style={{
           transform: `scale(1.05) rotate(${coords.x * 4}deg)`,
           transition: smoothTransition,
@@ -99,22 +96,52 @@ export default function HeroAvatar() {
         {/* ========================================================= */}
         <div className="absolute inset-x-0 bottom-0 w-full h-[48%]">
           {/* LAYER 1: The Box Base & Top Outline */}
-          <div className="absolute inset-0 bg-gradient-to-b from-zinc-50/90 via-zinc-100/40 to-zinc-100/90 border-t-2 border-zinc-950 shadow-xl shadow-zinc-950/5 relative overflow-hidden">
+          <div
+            className={`absolute inset-0 border-t-2 shadow-xl shadow-zinc-950/5 relative overflow-hidden transition-colors duration-300 ${
+              isColorMode ? "bg-[#181818] border-zinc-100" : "bg-zinc-50 border-zinc-950"
+            }`}
+          >
             {/* Top-left and Top-right corner tick markers (┌ ┐) */}
-            <div className="absolute top-0 left-0 w-3.5 h-3.5 border-l-2 border-zinc-950 pointer-events-none" />
-            <div className="absolute top-0 right-0 w-3.5 h-3.5 border-r-2 border-zinc-950 pointer-events-none" />
+            <div
+              className={`absolute top-0 left-0 w-3.5 h-3.5 border-l-2 pointer-events-none transition-colors duration-300 ${
+                isColorMode ? "border-zinc-100" : "border-zinc-950"
+              }`}
+            />
+            <div
+              className={`absolute top-0 right-0 w-3.5 h-3.5 border-r-2 pointer-events-none transition-colors duration-300 ${
+                isColorMode ? "border-zinc-100" : "border-zinc-950"
+              }`}
+            />
 
             {/* Faint technical dot matrix pattern */}
-            <div className="absolute inset-0 bg-[radial-gradient(#d4d4d8_1px,transparent_1px)] [background-size:24px_24px] opacity-35 pointer-events-none" />
+            <div
+              className={`absolute inset-0 [background-size:24px_24px] pointer-events-none transition-opacity duration-300 ${
+                isColorMode
+                  ? "bg-[radial-gradient(#3f3f46_1px,transparent_1px)] opacity-40"
+                  : "bg-[radial-gradient(#d4d4d8_1px,transparent_1px)] opacity-35"
+              }`}
+            />
           </div>
 
           {/* LAYER 2: Bottom Outline & Corner Ticks */}
           <div className="absolute bottom-0 inset-x-0 pointer-events-none z-10">
             {/* Solid Bottom Outline */}
-            <div className="w-full h-[2px] bg-zinc-950" />
+            <div
+              className={`w-full h-[2px] transition-colors duration-300 ${
+                isColorMode ? "bg-zinc-100" : "bg-zinc-950"
+              }`}
+            />
             {/* Bottom-left and Bottom-right corner tick markers */}
-            <div className="absolute bottom-0 left-0 w-3.5 h-3.5 border-b-2 border-l-2 border-zinc-950" />
-            <div className="absolute bottom-0 right-0 w-3.5 h-3.5 border-b-2 border-r-2 border-zinc-950" />
+            <div
+              className={`absolute bottom-0 left-0 w-3.5 h-3.5 border-b-2 border-l-2 transition-colors duration-300 ${
+                isColorMode ? "border-zinc-100" : "border-zinc-950"
+              }`}
+            />
+            <div
+              className={`absolute bottom-0 right-0 w-3.5 h-3.5 border-b-2 border-r-2 transition-colors duration-300 ${
+                isColorMode ? "border-zinc-100" : "border-zinc-950"
+              }`}
+            />
           </div>
         </div>
 
@@ -130,43 +157,20 @@ export default function HeroAvatar() {
             transition: smoothTransition,
           }}
         >
-          {/* Base Portrait: Natural Real Photo in Color Mode, Crisp Black & White in B&W Mode */}
+          {/* Base Portrait: Crisp Black & White Design */}
           <img
             src={asksWebp}
             alt="Emmanuel Chijioke"
             width={1200}
             height={1200}
-            className={`w-full h-full object-contain object-bottom drop-shadow-[0_15px_25px_rgba(0,0,0,0.18)] transition-all duration-500 ${
+            className={`w-full h-full object-contain object-bottom drop-shadow-[0_15px_25px_rgba(0,0,0,0.25)] grayscale transition-all duration-300 ${
               isColorMode
-                ? "contrast-[1.02] brightness-[1.0]"
-                : "grayscale contrast-[1.12] brightness-[0.98]"
+                ? "contrast-[1.14] brightness-[1.02]"
+                : "contrast-[1.12] brightness-[0.98]"
             }`}
             loading="eager"
             decoding="async"
           />
-
-          {/* Color Reveal Lens: in B&W mode, hover circumference dynamically clears B&W filter */}
-          {!isColorMode && (
-            <div
-              className="absolute inset-0 w-full h-full pointer-events-none"
-              style={{
-                maskImage: `radial-gradient(circle 115px at ${mousePos.x}% ${mousePos.y}%, black 0%, black 50%, transparent 100%)`,
-                WebkitMaskImage: `radial-gradient(circle 115px at ${mousePos.x}% ${mousePos.y}%, black 0%, black 50%, transparent 100%)`,
-                opacity: isHovered ? 1 : 0,
-                transition: isHovered ? "opacity 0.2s ease" : "opacity 0.45s ease",
-              }}
-            >
-              <img
-                src={asksWebp}
-                alt=""
-                aria-hidden="true"
-                width={1200}
-                height={1200}
-                decoding="async"
-                className="w-full h-full object-contain object-bottom saturate-[0.7] contrast-[1.04] brightness-[1.01]"
-              />
-            </div>
-          )}
         </div>
 
         {/* ========================================================= */}
@@ -174,33 +178,47 @@ export default function HeroAvatar() {
         {/* ========================================================= */}
         {/* Badge 1: Frontend Dev (hidden on mobile to prevent floating detached in whitespace) */}
         <div
-          className="hidden sm:flex absolute top-10 -left-2 sm:top-12 sm:-left-5 px-3 py-1.5 sm:px-4 sm:py-2 rounded-xl bg-white/95 backdrop-blur-md border border-zinc-200 shadow-lg items-center gap-2 text-xs sm:text-sm font-semibold text-zinc-900 [transform-style:preserve-3d]"
+          data-avatar-badge="true"
+          className={`hidden sm:flex absolute top-10 -left-2 sm:top-12 sm:-left-5 px-3 py-1.5 sm:px-4 sm:py-2 rounded-xl backdrop-blur-md border shadow-lg items-center gap-2 text-xs sm:text-sm font-semibold [transform-style:preserve-3d] transition-colors duration-300 ${
+            isColorMode
+              ? "bg-[#18181b]/95 border-zinc-700 text-white shadow-black/50"
+              : "bg-white/95 border-zinc-200 text-zinc-900 shadow-zinc-950/5"
+          }`}
           style={{
             transform: `translate3d(${-badgeTranslateX}px, ${-badgeTranslateY}px, 50px)`,
             transition: smoothTransition,
           }}
         >
-          <FaReact className={`text-base sm:text-lg transition-colors duration-300 ${isColorMode ? "text-[#00d8ff]" : "text-zinc-950"}`} />
-          <SiTypescript className={`text-sm sm:text-base transition-colors duration-300 ${isColorMode ? "text-[#3178c6]" : "text-zinc-950"}`} />
+          <FaReact className={`text-base sm:text-lg transition-colors duration-300 ${isColorMode ? "text-white" : "text-zinc-950"}`} />
+          <SiTypescript className={`text-sm sm:text-base transition-colors duration-300 ${isColorMode ? "text-white" : "text-zinc-950"}`} />
           <span>Frontend Dev</span>
         </div>
 
         {/* Badge 2: Full-Stack & Systems (hidden on mobile to prevent clipping) */}
         <div
-          className="hidden sm:flex absolute bottom-3 -right-2 sm:bottom-4 sm:-right-4 px-3 py-1.5 sm:px-4 sm:py-2 rounded-xl bg-white/95 backdrop-blur-md border border-zinc-200 shadow-lg items-center gap-2 text-xs sm:text-sm font-semibold text-zinc-900 [transform-style:preserve-3d]"
+          data-avatar-badge="true"
+          className={`hidden sm:flex absolute bottom-3 -right-2 sm:bottom-4 sm:-right-4 px-3 py-1.5 sm:px-4 sm:py-2 rounded-xl backdrop-blur-md border shadow-lg items-center gap-2 text-xs sm:text-sm font-semibold [transform-style:preserve-3d] transition-colors duration-300 ${
+            isColorMode
+              ? "bg-[#18181b]/95 border-zinc-700 text-white shadow-black/50"
+              : "bg-white/95 border-zinc-200 text-zinc-900 shadow-zinc-950/5"
+          }`}
           style={{
             transform: `translate3d(${badgeTranslateX}px, ${badgeTranslateY}px, 50px)`,
             transition: smoothTransition,
           }}
         >
-          <FaPython className={`text-base sm:text-lg transition-colors duration-300 ${isColorMode ? "text-[#3776ab]" : "text-zinc-950"}`} />
-          <SiElectron className={`text-sm sm:text-base transition-colors duration-300 ${isColorMode ? "text-[#47848f]" : "text-zinc-950"}`} />
+          <FaPython className={`text-base sm:text-lg transition-colors duration-300 ${isColorMode ? "text-white" : "text-zinc-950"}`} />
+          <SiElectron className={`text-sm sm:text-base transition-colors duration-300 ${isColorMode ? "text-white" : "text-zinc-950"}`} />
           <span>Full-Stack &amp; Systems</span>
         </div>
 
         {/* Badge 3: Experience Pill (snug against box edge on mobile) */}
         <div
-          className="absolute bottom-[40%] -right-1 sm:-right-6 px-3 py-1 sm:px-4 sm:py-2 rounded-full bg-zinc-950 text-white text-xs sm:text-sm font-mono font-bold shadow-xl shadow-zinc-950/20 [transform-style:preserve-3d]"
+          className={`absolute bottom-[40%] -right-1 sm:-right-6 px-3 py-1 sm:px-4 sm:py-2 rounded-full text-xs sm:text-sm font-mono font-bold shadow-xl [transform-style:preserve-3d] border transition-colors duration-300 ${
+            isColorMode
+              ? "bg-[#18181b] text-white border-zinc-700 shadow-black/50"
+              : "bg-zinc-950 text-white border-zinc-800 shadow-zinc-950/20"
+          }`}
           style={{
             transform: `translate3d(${badgeTranslateX * 0.8}px, ${badgeTranslateY * 0.8}px, 60px)`,
             transition: smoothTransition,

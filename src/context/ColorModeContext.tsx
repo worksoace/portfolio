@@ -4,34 +4,42 @@ import type { ReactNode } from "react";
 interface ColorModeContextType {
   isColorMode: boolean;
   toggleColorMode: () => void;
+  isDarkMode: boolean;
 }
 
 const ColorModeContext = createContext<ColorModeContextType>({
   isColorMode: false,
   toggleColorMode: () => {},
+  isDarkMode: false,
 });
 
 export function ColorModeProvider({ children }: { children: ReactNode }) {
-  const [isColorMode, setIsColorMode] = useState<boolean>(() => {
-    return localStorage.getItem("color-mode") === "true";
+  const [isDarkMode, setIsDarkMode] = useState<boolean>(() => {
+    return localStorage.getItem("theme-mode") === "dark";
   });
 
   useEffect(() => {
-    if (isColorMode) {
-      document.documentElement.classList.add("color-mode");
-      localStorage.setItem("color-mode", "true");
+    if (isDarkMode) {
+      document.documentElement.classList.add("dark", "color-mode");
+      localStorage.setItem("theme-mode", "dark");
     } else {
-      document.documentElement.classList.remove("color-mode");
-      localStorage.setItem("color-mode", "false");
+      document.documentElement.classList.remove("dark", "color-mode");
+      localStorage.setItem("theme-mode", "light");
     }
-  }, [isColorMode]);
+  }, [isDarkMode]);
 
   const toggleColorMode = () => {
-    setIsColorMode((prev) => !prev);
+    setIsDarkMode((prev) => !prev);
   };
 
   return (
-    <ColorModeContext.Provider value={{ isColorMode, toggleColorMode }}>
+    <ColorModeContext.Provider
+      value={{
+        isColorMode: isDarkMode,
+        isDarkMode,
+        toggleColorMode,
+      }}
+    >
       {children}
     </ColorModeContext.Provider>
   );
