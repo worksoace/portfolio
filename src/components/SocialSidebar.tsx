@@ -1,7 +1,13 @@
 import { FiGithub, FiLinkedin } from "react-icons/fi";
+import { FaWhatsapp } from "react-icons/fa";
 
 export default function SocialSidebar() {
   const socialLinks = [
+    {
+      icon: <FaWhatsapp size={18} />,
+      href: "https://wa.me/2349039631182",
+      label: "WhatsApp",
+    },
     {
       icon: <FiGithub size={18} />,
       href: "https://github.com/worksoace",
@@ -23,7 +29,7 @@ export default function SocialSidebar() {
           target="_blank"
           rel="noreferrer"
           aria-label={social.label}
-          className="w-9 h-9 rounded-lg border border-zinc-200 dark:border-zinc-800 bg-white dark:bg-zinc-900 flex items-center justify-center text-zinc-400 hover:text-brand hover:border-brand/50 transition-colors"
+          className="w-9 h-9 rounded-lg border border-zinc-200 bg-white flex items-center justify-center text-zinc-500 hover:text-zinc-950 hover:border-zinc-950 transition-all shadow-xs"
         >
           {social.icon}
         </a>

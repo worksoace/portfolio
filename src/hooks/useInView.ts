@@ -5,6 +5,10 @@ export function useInView<T extends HTMLElement>(options?: IntersectionObserverI
   const [inView, setInView] = useState(false);
   const [hasAnimated, setHasAnimated] = useState(false);
 
+  const root = options?.root ?? null;
+  const rootMargin = options?.rootMargin ?? "0px 0px -10% 0px";
+  const threshold = options?.threshold ?? 0.1;
+
   useEffect(() => {
     const node = ref.current;
     if (!node) return;
@@ -14,24 +18,22 @@ export function useInView<T extends HTMLElement>(options?: IntersectionObserverI
         if (entry.isIntersecting && !hasAnimated) {
           setInView(true);
           setHasAnimated(true);
-          // Only unobserve if we don't want to animate again when scrolling back up
-          // observer.unobserve(entry.target);
         } else if (!entry.isIntersecting && !hasAnimated) {
           setInView(false);
         }
       });
     }, {
-      root: null,
-      rootMargin: "0px 0px -10% 0px",
-      threshold: 0.1,
-      ...options
+      root,
+      rootMargin,
+      threshold,
     });
 
     observer.observe(node);
     return () => observer.disconnect();
-  }, [options?.root, options?.rootMargin, options?.threshold, hasAnimated]);
+  }, [root, rootMargin, threshold, hasAnimated]);
 
   return { ref, inView } as const;
 }
+
 
 

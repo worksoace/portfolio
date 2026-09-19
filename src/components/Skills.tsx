@@ -3,102 +3,136 @@ import {
   FaHtml5,
   FaCss3Alt,
   FaGitAlt,
-  FaFigma,
-  FaPaintBrush,
-  FaPhp,
+  FaPython,
 } from "react-icons/fa";
 import {
   SiTypescript,
   SiTailwindcss,
   SiJavascript,
-  SiAdobephotoshop,
-  SiDjango,
-  SiCanva,
+  SiFlask,
+  SiMysql,
+  SiElectron,
 } from "react-icons/si";
-import { HiCodeBracket, HiPaintBrush } from "react-icons/hi2";
+import { HiCodeBracket, HiCommandLine } from "react-icons/hi2";
 import Reveal from "./Reveal";
+import { useColorMode } from "../context/ColorModeContext";
 
-const skillCategories = [
+interface SkillItem {
+  label: string;
+  brandColor: string;
+  icon: React.ComponentType<{ className?: string }>;
+}
+
+interface SkillCategory {
+  title: string;
+  subtitle: string;
+  icon: React.ComponentType<{ className?: string }>;
+  skills: SkillItem[];
+}
+
+const skillCategories: SkillCategory[] = [
   {
-    title: "Frontend",
+    title: "Frontend Engineering",
+    subtitle: "Fast, accessible user interfaces & web apps",
+    icon: HiCodeBracket,
     skills: [
-      { label: "React", icon: <FaReact className="text-blue-400" /> },
-      { label: "TypeScript", icon: <SiTypescript className="text-blue-500" /> },
-      { label: "JavaScript", icon: <SiJavascript className="text-yellow-400" /> },
-      { label: "HTML5", icon: <FaHtml5 className="text-orange-500" /> },
-      { label: "CSS3", icon: <FaCss3Alt className="text-blue-400" /> },
-      { label: "Tailwind", icon: <SiTailwindcss className="text-cyan-400" /> },
+      { label: "React", icon: FaReact, brandColor: "text-[#00d8ff]" },
+      { label: "TypeScript", icon: SiTypescript, brandColor: "text-[#3178c6]" },
+      { label: "JavaScript (ES6+)", icon: SiJavascript, brandColor: "text-[#eab308]" },
+      { label: "Tailwind CSS", icon: SiTailwindcss, brandColor: "text-[#38bdf8]" },
+      { label: "HTML5 Semantic", icon: FaHtml5, brandColor: "text-[#e34f26]" },
+      { label: "CSS3 / Modern CSS", icon: FaCss3Alt, brandColor: "text-[#1572b6]" },
     ],
   },
   {
-    title: "Backend",
+    title: "Full-Stack & Systems",
+    subtitle: "APIs, server runtimes, and local data",
+    icon: HiCommandLine,
     skills: [
-      { label: "PHP", icon: <FaPhp className="text-purple-400" /> },
-      { label: "Django", icon: <SiDjango className="text-green-500" /> },
-      { label: "Git", icon: <FaGitAlt className="text-orange-500" /> },
-    ],
-  },
-  {
-    title: "Design Tools",
-    skills: [
-      { label: "Figma", icon: <FaFigma className="text-purple-500" /> },
-      { label: "Photoshop", icon: <SiAdobephotoshop className="text-blue-500" /> },
-      { label: "Canva", icon: <SiCanva className="text-blue-400" /> },
-    ],
-  },
-  {
-    title: "Design Skills",
-    skills: [
-      { label: "UI/UX Design", icon: <FaPaintBrush className="text-pink-400" /> },
-      { label: "Graphic Design", icon: <HiPaintBrush className="text-green-400" /> },
-      { label: "Web Design", icon: <HiCodeBracket className="text-brand" /> },
+      { label: "Python", icon: FaPython, brandColor: "text-[#3776ab]" },
+      { label: "Flask", icon: SiFlask, brandColor: "text-emerald-600" },
+      { label: "Electron", icon: SiElectron, brandColor: "text-[#47848f]" },
+      { label: "MySQL", icon: SiMysql, brandColor: "text-[#4479a1]" },
+      { label: "REST APIs", icon: HiCommandLine, brandColor: "text-indigo-600" },
+      { label: "Git & GitHub", icon: FaGitAlt, brandColor: "text-[#f05032]" },
     ],
   },
 ];
 
 export default function Skills() {
+  const { isColorMode } = useColorMode();
+
   return (
-    <section id="skills" className="section-block bg-zinc-50 dark:bg-zinc-900/50">
-      <div className="mx-auto max-w-2xl">
-        <div className="text-center mb-12">
-          <Reveal animation="fade-up" distance={30}>
-            <span className="text-brand font-mono text-xs tracking-[0.3em] uppercase mb-3 block">
-              &gt; skills
+    <section id="skills" className="section-block bg-white">
+      <div className="mx-auto max-w-6xl px-6 lg:px-12">
+        <div className="text-center max-w-2xl mx-auto mb-14">
+          <Reveal animation="fade-up" distance={20}>
+            <span className="text-zinc-500 font-mono text-xs tracking-[0.25em] uppercase mb-3 block font-semibold">
+              &gt; TOOLKIT &amp; SKILLS
             </span>
           </Reveal>
-          <Reveal animation="fade-up" distance={30} delayMs={100}>
-            <h2 className="text-4xl font-bold text-zinc-900 dark:text-white">
-              Technical Expertise
+          <Reveal animation="fade-up" distance={20} delayMs={100}>
+            <h2 className="text-3xl sm:text-4xl font-bold text-zinc-950 tracking-tight mb-3">
+              Technical Toolkit
             </h2>
+          </Reveal>
+          <Reveal animation="fade-up" distance={20} delayMs={180}>
+            <p className="text-zinc-600 text-base leading-relaxed">
+              Core technologies and development tools I build with daily.
+            </p>
           </Reveal>
         </div>
 
-        <div className="grid grid-cols-1 sm:grid-cols-2 gap-10">
-          {skillCategories.map((category, catIdx) => (
-            <Reveal
-              key={category.title}
-              animation="fade-up"
-              distance={30}
-              delayMs={catIdx * 100}
-            >
-              <div>
-                <h3 className="text-xs font-mono text-brand tracking-widest uppercase mb-4">
-                  {category.title}
-                </h3>
-                <div className="flex flex-wrap gap-2">
-                  {category.skills.map((skill) => (
-                    <div
-                      key={skill.label}
-                      className="flex items-center gap-2 px-3 py-2 rounded-lg border border-zinc-200 dark:border-zinc-800 bg-white dark:bg-zinc-900 text-sm text-zinc-600 dark:text-zinc-300 hover:border-brand/50 hover:text-brand transition-colors"
-                    >
-                      <span className="text-base">{skill.icon}</span>
-                      {skill.label}
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+          {skillCategories.map((category, catIdx) => {
+            const CategoryIcon = category.icon;
+            return (
+              <Reveal
+                key={category.title}
+                animation="fade-up"
+                distance={20}
+                delayMs={catIdx * 100}
+                className="flex"
+              >
+                <div className="w-full rounded-2xl border border-zinc-200 bg-zinc-50/60 p-6 sm:p-8 flex flex-col justify-between hover:border-zinc-950 transition-all duration-300 shadow-xs">
+                  <div>
+                    <div className="flex items-center gap-3 mb-2">
+                      <div className="w-10 h-10 rounded-xl bg-white border border-zinc-200 flex items-center justify-center text-zinc-950 shadow-xs">
+                        <CategoryIcon className="text-xl" />
+                      </div>
+                      <div>
+                        <h3 className="text-base sm:text-lg font-bold text-zinc-950">
+                          {category.title}
+                        </h3>
+                        <p className="text-xs text-zinc-500">
+                          {category.subtitle}
+                        </p>
+                      </div>
                     </div>
-                  ))}
+
+                    <div className="grid grid-cols-2 sm:grid-cols-3 gap-2.5 mt-6">
+                      {category.skills.map((skill) => {
+                        const SkillIcon = skill.icon;
+                        return (
+                          <div
+                            key={skill.label}
+                            className="flex items-center gap-2.5 px-3 py-2.5 rounded-xl border border-zinc-200 bg-white text-xs font-medium text-zinc-800 hover:border-zinc-950 hover:text-zinc-950 transition-all duration-200 shadow-xs group"
+                          >
+                            <span className={`text-base group-hover:scale-110 transition-transform duration-200 ${
+                              isColorMode ? skill.brandColor : "text-zinc-950"
+                            }`}>
+                              <SkillIcon />
+                            </span>
+                            <span className="truncate">{skill.label}</span>
+                          </div>
+                        );
+                      })}
+                    </div>
+                  </div>
                 </div>
-              </div>
-            </Reveal>
-          ))}
+              </Reveal>
+            );
+          })}
         </div>
       </div>
     </section>

@@ -1,6 +1,9 @@
+import { useEffect, useState } from "react";
 import "./App.css";
+import { ColorModeProvider, useColorMode } from "./context/ColorModeContext";
+import MoleculesBackground from "./components/MoleculesBackground";
 import MouseTrail from "./components/MouseTrail";
-import ThemeToggle from "./components/ThemeToggle";
+import NavBar from "./components/NavBar";
 import SocialSidebar from "./components/SocialSidebar";
 import Hero from "./components/Hero";
 import About from "./components/About";
@@ -10,15 +13,42 @@ import Skills from "./components/Skills";
 import Contact from "./components/Contact";
 import Footer from "./components/Footer";
 
-function App() {
+function AppContent() {
+  const [scrollProgress, setScrollProgress] = useState(0);
+  const { isColorMode } = useColorMode();
+
+  useEffect(() => {
+    document.documentElement.classList.remove("dark");
+    localStorage.removeItem("theme");
+
+    const handleScroll = () => {
+      const totalScroll = document.documentElement.scrollHeight - window.innerHeight;
+      if (totalScroll > 0) {
+        const currentScroll = window.scrollY;
+        setScrollProgress((currentScroll / totalScroll) * 100);
+      }
+    };
+
+    window.addEventListener("scroll", handleScroll, { passive: true });
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, []);
+
   return (
-    <>
+    <div className={`relative min-h-screen bg-white text-zinc-900 transition-colors duration-500 ${isColorMode ? "color-mode-active" : ""}`}>
+      {/* Top Reading Progress Bar */}
+      <div
+        className={`fixed top-0 left-0 h-[2.5px] z-50 transition-all duration-75 ${
+          isColorMode ? "bg-blue-600" : "bg-zinc-950"
+        }`}
+        style={{ width: `${scrollProgress}%` }}
+        aria-hidden="true"
+      />
+
+      <MoleculesBackground />
       <MouseTrail />
-      <div className="fixed top-6 right-8 z-50">
-        <ThemeToggle />
-      </div>
+      <NavBar />
       <SocialSidebar />
-      <main className="w-full">
+      <main className="w-full overflow-hidden">
         <Hero />
         <About />
         <Experience />
@@ -27,8 +57,14 @@ function App() {
         <Contact />
       </main>
       <Footer />
-    </>
+    </div>
   );
 }
 
-export default App;
+export default function App() {
+  return (
+    <ColorModeProvider>
+      <AppContent />
+    </ColorModeProvider>
+  );
+}

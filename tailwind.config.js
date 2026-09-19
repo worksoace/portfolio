@@ -1,15 +1,17 @@
 /** @type {import('tailwindcss').Config} */
 export default {
   content: ["./index.html", "./src/**/*.{js,ts,jsx,tsx}"],
-  darkMode: "class",
   theme: {
     extend: {
       colors: {
         brand: {
-          DEFAULT: "#3B82F6",
-          foreground: "#CCD9F6",
-          dark: "#059669",
+          DEFAULT: "rgb(var(--brand-rgb) / <alpha-value>)",
+          foreground: "rgb(var(--brand-foreground-rgb) / <alpha-value>)",
+          dark: "rgb(var(--brand-dark-rgb) / <alpha-value>)",
         },
+      },
+      fontFamily: {
+        orbitron: ["Orbitron", "sans-serif"],
       },
       container: {
         center: true,

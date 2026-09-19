@@ -20,7 +20,6 @@ export default function MouseTrail() {
 
 		const handleMouseMove = (e: MouseEvent) => {
 			mouseRef.current = { x: e.clientX, y: e.clientY };
-			// Add new particle
 			particlesRef.current.push({
 				x: e.clientX,
 				y: e.clientY,
@@ -39,9 +38,9 @@ export default function MouseTrail() {
 				particle.y += particle.vy;
 				particle.life -= 0.06;
 				const alpha = particle.life;
-				ctx.fillStyle = `rgba(92, 58, 40, ${alpha * 0.4})`;
+				ctx.fillStyle = `rgba(0, 0, 0, ${alpha * 0.16})`;
 				ctx.beginPath();
-				ctx.arc(particle.x, particle.y, 3, 0, Math.PI * 2);
+				ctx.arc(particle.x, particle.y, 2.5, 0, Math.PI * 2);
 				ctx.fill();
 				
 				return particle.life > 0;

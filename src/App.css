@@ -4,26 +4,33 @@
 
 /* Base theme and utilities */
 @layer base {
+  :root {
+    /* Pure Monochromatic Black & Neutral */
+    --brand-rgb: 9 9 11;
+    --brand-foreground-rgb: 255 255 255;
+    --brand-dark-rgb: 0 0 0;
+  }
+
   html {
     scroll-behavior: smooth;
   }
   body {
-    @apply bg-white text-zinc-900 dark:bg-zinc-950 dark:text-zinc-100 antialiased;
+    @apply bg-white text-zinc-900 antialiased;
     font-family: "Poppins", "Inter", ui-sans-serif, system-ui, -apple-system,
       Segoe UI, Roboto, Ubuntu, Cantarell, Noto Sans, "Helvetica Neue", Arial,
       "Apple Color Emoji", "Segoe UI Emoji";
   }
   ::selection {
-    @apply bg-brand text-zinc-900;
+    @apply bg-zinc-950 text-white;
   }
 }
 
 @layer components {
   .btn-primary {
-    @apply inline-flex items-center rounded-md bg-brand text-zinc-900 px-4 py-2 text-sm font-medium shadow hover:opacity-90 transition;
+    @apply inline-flex items-center rounded-xl bg-zinc-950 text-white px-5 py-2.5 text-sm font-medium shadow-sm hover:bg-black transition-all;
   }
   .btn-outline {
-    @apply inline-flex items-center rounded-md border border-zinc-300 dark:border-zinc-700 px-4 py-2 text-sm text-zinc-900 dark:text-white hover:bg-zinc-100 dark:hover:bg-zinc-800 transition;
+    @apply inline-flex items-center rounded-xl border border-zinc-300 bg-white px-5 py-2.5 text-sm text-zinc-800 hover:border-zinc-950 transition-all;
   }
   .section-block {
     @apply py-24 px-4;
@@ -51,4 +58,101 @@
   .responsive-grid {
     @apply grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6 lg:gap-8;
   }
+
+  /* Hide scrollbar */
+  .no-scrollbar::-webkit-scrollbar {
+    display: none;
+  }
+  .no-scrollbar {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+  }
+
+  /* Animated partial underline for navbar using ::before and ::after */
+  .nav-partial-underline {
+    position: relative;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .nav-partial-underline::before,
+  .nav-partial-underline::after {
+    content: "";
+    position: absolute;
+    bottom: 2px;
+    height: 2px;
+    width: 22%;
+    background-color: #09090b;
+    opacity: 0;
+    transition: transform 0.28s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.2s ease;
+  }
+  /* Left half of partial underline */
+  .nav-partial-underline::before {
+    right: 50%;
+    transform-origin: right center;
+    transform: scaleX(0);
+    border-top-left-radius: 9999px;
+    border-bottom-left-radius: 9999px;
+  }
+  /* Right half of partial underline */
+  .nav-partial-underline::after {
+    left: 50%;
+    transform-origin: left center;
+    transform: scaleX(0);
+    border-top-right-radius: 9999px;
+    border-bottom-right-radius: 9999px;
+  }
+  /* Hover state: expands partially with medium opacity */
+  .nav-partial-underline:hover::before,
+  .nav-partial-underline:hover::after {
+    transform: scaleX(0.75);
+    opacity: 0.55;
+  }
+  /* Active state: full partial width (22% + 22% = 44%) and 100% solid opacity */
+  .nav-partial-underline.active::before,
+  .nav-partial-underline.active::after {
+    transform: scaleX(1);
+    opacity: 1;
+  }
+
+  .font-orbitron {
+    font-family: "Orbitron", ui-sans-serif, system-ui, sans-serif;
+  }
 }
+
+/* ==========================================================================
+   COLOR MODE THEME (EASTER EGG TOGGLED VIA PROFILE CLICK)
+   ========================================================================== */
+
+/* Selection highlight */
+.color-mode ::selection {
+  background-color: #2563eb;
+  color: #ffffff;
+}
+
+/* Smooth transition for color transformations */
+.color-mode *,
+html:not(.color-mode) * {
+  transition-property: color, background-color, border-color, text-decoration-color, fill, stroke;
+  transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+  transition-duration: 300ms;
+}
+
+/* Tasteful subtle navigation active accent */
+.color-mode .nav-partial-underline::before,
+.color-mode .nav-partial-underline::after {
+  background-color: #2563eb !important;
+}
+
+.color-mode .nav-partial-underline.active {
+  color: #2563eb !important;
+}
+
+/* Subtle focus accent */
+.color-mode input:focus,
+.color-mode textarea:focus {
+  border-color: #2563eb !important;
+  box-shadow: 0 0 0 2px rgba(37, 99, 235, 0.12) !important;
+}
+
+

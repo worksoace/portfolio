@@ -1,17 +1,13 @@
 import { useMemo, useState } from "react";
 import { useScrollSpy } from "../hooks/useScrollSpy";
 import { HiBars3, HiXMark } from "react-icons/hi2";
-import {
-  HiHome,
-  HiUser,
-  HiBriefcase,
-  HiSquares2X2,
-  HiSparkles,
-  HiEnvelope,
-} from "react-icons/hi2";
-import Reveal from "./Reveal";
 
-function NavBar() {
+interface NavItem {
+  id: string;
+  label: string;
+}
+
+export default function NavBar() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const sections = useMemo(
     () => ["home", "about", "experience", "projects", "skills", "contact"],
@@ -19,145 +15,129 @@ function NavBar() {
   );
   const activeId = useScrollSpy(sections);
 
-  const linkClass = (id: string) =>
-    `transition-all duration-300 flex items-center justify-center w-12 h-12 rounded-xl mb-2 text-2xl relative group ${
-      activeId === id
-        ? "bg-brand/90 text-white shadow-lg scale-110"
-        : "text-zinc-400 hover:text-brand hover:bg-brand/10 hover:scale-105"
-    } before:content-[''] before:absolute before:inset-0 before:rounded-xl before:bg-gradient-to-r before:from-brand/20 before:to-transparent before:opacity-0 group-hover:before:opacity-100 before:transition-opacity before:duration-300`;
+  const navItems: NavItem[] = [
+    { id: "home", label: "Home" },
+    { id: "about", label: "About" },
+    { id: "experience", label: "Experience" },
+    { id: "projects", label: "Projects" },
+    { id: "skills", label: "Skills" },
+    // { id: "contact", label: "Contact" },
+  ];
 
-  const toggleMenu = () => {
-    setIsMenuOpen(!isMenuOpen);
-  };
-
-  const closeMenu = () => {
-    setIsMenuOpen(false);
-  };
+  const toggleMenu = () => setIsMenuOpen(!isMenuOpen);
+  const closeMenu = () => setIsMenuOpen(false);
 
   return (
     <>
-      {/* Hamburger Menu Button - Only visible on mobile */}
-      <button
-        onClick={toggleMenu}
-        className="fixed top-4 left-4 z-[110] p-2 rounded-lg bg-white/95 dark:bg-zinc-900/95 border border-zinc-200 dark:border-zinc-800 shadow-lg md:hidden hover:bg-zinc-100 dark:hover:bg-zinc-800 transition-colors focus:outline-none focus:ring-2 focus:ring-brand/50"
-        aria-label={isMenuOpen ? "Close menu" : "Open menu"}
-        aria-expanded={isMenuOpen}
-      >
-        {isMenuOpen ? <HiXMark size={24} /> : <HiBars3 size={24} />}
-      </button>
+      <header className="fixed top-4 left-0 right-0 z-50 flex justify-center px-4 pointer-events-none">
+        <nav
+          className="pointer-events-auto w-full max-w-4xl flex items-center justify-between px-3 sm:px-5 py-2.5 rounded-full bg-white/90 backdrop-blur-md border border-zinc-200 shadow-lg shadow-zinc-900/5 transition-all duration-300"
+          aria-label="Main Navigation"
+        >
+          {/* Brand Logo */}
+          <a
+            href="#home"
+            className="flex items-center gap-2.5 px-1 py-1 rounded-full group transition-transform hover:scale-105"
+            aria-label="Emmanuel Chijioke - Home"
+          >
+            <img
+              src="/EC.png"
+              alt="Emmanuel Chijioke Logo"
+              className="w-8 h-8 rounded-full object-contain bg-white shadow-xs border border-zinc-200"
+            />
+            <span className="font-bold text-sm tracking-tight text-zinc-900 group-hover:text-zinc-600 transition-colors hidden sm:inline-block">
+              Emmanuel C.
+            </span>
+          </a>
 
-      {/* Mobile Menu Overlay */}
+          {/* Desktop Nav Items */}
+          <div className="hidden md:flex items-center gap-1">
+            {navItems.map((item) => {
+              const isActive = activeId === item.id;
+              return (
+                <a
+                  key={item.id}
+                  href={`#${item.id}`}
+                  className={`nav-partial-underline relative px-3.5 py-1.5 text-xs lg:text-sm font-medium transition-colors duration-200 ${
+                    isActive
+                      ? "text-zinc-950 font-semibold active"
+                      : "text-zinc-600 hover:text-zinc-950"
+                  }`}
+                >
+                  {item.label}
+                </a>
+              );
+            })}
+          </div>
+
+          {/* Right Action CTA & Mobile Toggle */}
+          <div className="flex items-center gap-2">
+            <a
+              href="#contact"
+              className="hidden sm:inline-flex items-center px-4 py-1.5 rounded-full bg-zinc-950 text-white font-medium text-xs hover:bg-black transition-colors shadow-xs"
+            >
+              Let's Talk
+            </a>
+
+            {/* Mobile Hamburger Toggle */}
+            <button
+              onClick={toggleMenu}
+              className="md:hidden p-2 rounded-lg text-zinc-600 hover:text-zinc-950 hover:bg-zinc-100 transition-colors"
+              aria-label={isMenuOpen ? "Close menu" : "Open menu"}
+              aria-expanded={isMenuOpen}
+            >
+              {isMenuOpen ? <HiXMark size={20} /> : <HiBars3 size={20} />}
+            </button>
+          </div>
+        </nav>
+      </header>
+
+      {/* Mobile Menu Backdrop */}
       <div
-        className={`fixed inset-0 bg-black/50 z-[105] transition-opacity duration-300 md:hidden ${
-          isMenuOpen ? "opacity-100" : "opacity-0 pointer-events-none"
+        className={`fixed inset-0 bg-black/40 backdrop-blur-sm z-40 transition-opacity duration-300 md:hidden ${
+          isMenuOpen ? "opacity-100 pointer-events-auto" : "opacity-0 pointer-events-none"
         }`}
         onClick={closeMenu}
       />
 
-      {/* Navigation Sidebar */}
-      <aside
-        className={`fixed top-0 z-[106] h-full w-20 bg-white/95 dark:bg-zinc-900/95 border-r border-zinc-200 dark:border-zinc-800 flex flex-col items-center py-6 gap-4 shadow-xl transition-transform duration-300 md:translate-x-0 overflow-visible ${
-          isMenuOpen ? "translate-x-0" : "-translate-x-full md:translate-x-0"
+      {/* Mobile Drawer / Dropdown */}
+      <div
+        className={`fixed top-20 left-4 right-4 z-40 p-4 rounded-2xl bg-white/95 backdrop-blur-lg border border-zinc-200 shadow-2xl transition-all duration-300 md:hidden ${
+          isMenuOpen
+            ? "translate-y-0 opacity-100 pointer-events-auto"
+            : "-translate-y-4 opacity-0 pointer-events-none"
         }`}
-        aria-hidden={!isMenuOpen}
-        role="navigation"
-        aria-label="Main navigation"
       >
-        <div className="flex-1 flex flex-col items-center justify-center gap-2">
-          <Reveal animation="fade-right" distance={20}>
-            <div className="relative group">
+        <div className="flex flex-col gap-1">
+          {navItems.map((item) => {
+            const isActive = activeId === item.id;
+            return (
               <a
-                href="#home"
-                className={linkClass("home")}
-                aria-label="Home"
+                key={item.id}
+                href={`#${item.id}`}
                 onClick={closeMenu}
+                className={`px-4 py-2.5 rounded-xl text-sm font-medium transition-colors flex items-center justify-between ${
+                  isActive
+                    ? "bg-zinc-100 text-zinc-950 font-semibold"
+                    : "text-zinc-700 hover:bg-zinc-100"
+                }`}
               >
-                <HiHome />
+                <span>{item.label}</span>
+                {isActive && <span className="w-1.5 h-1.5 rounded-full bg-zinc-950" />}
               </a>
-              <div className="absolute left-14 top-1/2 -translate-y-1/2 bg-zinc-900 dark:bg-zinc-800 text-white px-3 py-2 rounded-lg text-sm font-medium whitespace-nowrap shadow-xl opacity-0 group-hover:opacity-100 transition-all duration-300 translate-x-[-10px] group-hover:translate-x-0 pointer-events-none z-50">
-                Home
-              </div>
-            </div>
-          </Reveal>
-          <Reveal animation="fade-right" distance={20} delayMs={100}>
-            <div className="relative group">
-              <a
-                href="#about"
-                className={linkClass("about")}
-                aria-label="About"
-                onClick={closeMenu}
-              >
-                <HiUser />
-              </a>
-              <div className="absolute left-14 top-1/2 -translate-y-1/2 bg-zinc-900 dark:bg-zinc-800 text-white px-3 py-2 rounded-lg text-sm font-medium whitespace-nowrap shadow-xl opacity-0 group-hover:opacity-100 transition-all duration-300 translate-x-[-10px] group-hover:translate-x-0 pointer-events-none z-50">
-                About
-              </div>
-            </div>
-          </Reveal>
-          <Reveal animation="fade-right" distance={20} delayMs={200}>
-            <div className="relative group">
-              <a
-                href="#experience"
-                className={linkClass("experience")}
-                aria-label="Experience"
-                onClick={closeMenu}
-              >
-                <HiBriefcase />
-              </a>
-              <div className="absolute left-14 top-1/2 -translate-y-1/2 bg-zinc-900 dark:bg-zinc-800 text-white px-3 py-2 rounded-lg text-sm font-medium whitespace-nowrap shadow-xl opacity-0 group-hover:opacity-100 transition-all duration-300 translate-x-[-10px] group-hover:translate-x-0 pointer-events-none z-50">
-                Experience
-              </div>
-            </div>
-          </Reveal>
-          <Reveal animation="fade-right" distance={20} delayMs={300}>
-            <div className="relative group">
-              <a
-                href="#projects"
-                className={linkClass("projects")}
-                aria-label="Projects"
-                onClick={closeMenu}
-              >
-                <HiSquares2X2 />
-              </a>
-              <div className="absolute left-14 top-1/2 -translate-y-1/2 bg-zinc-900 dark:bg-zinc-800 text-white px-3 py-2 rounded-lg text-sm font-medium whitespace-nowrap shadow-xl opacity-0 group-hover:opacity-100 transition-all duration-300 translate-x-[-10px] group-hover:translate-x-0 pointer-events-none z-50">
-                Projects
-              </div>
-            </div>
-          </Reveal>
-          <Reveal animation="fade-right" distance={20} delayMs={400}>
-            <div className="relative group">
-              <a
-                href="#skills"
-                className={linkClass("skills")}
-                aria-label="Skills"
-                onClick={closeMenu}
-              >
-                <HiSparkles />
-              </a>
-              <div className="absolute left-14 top-1/2 -translate-y-1/2 bg-zinc-900 dark:bg-zinc-800 text-white px-3 py-2 rounded-lg text-sm font-medium whitespace-nowrap shadow-xl opacity-0 group-hover:opacity-100 transition-all duration-300 translate-x-[-10px] group-hover:translate-x-0 pointer-events-none z-50">
-                Skills
-              </div>
-            </div>
-          </Reveal>
-          <Reveal animation="fade-right" distance={20} delayMs={500}>
-            <div className="relative group">
-              <a
-                href="#contact"
-                className={linkClass("contact")}
-                aria-label="Contact"
-                onClick={closeMenu}
-              >
-                <HiEnvelope />
-              </a>
-              <div className="absolute left-14 top-1/2 -translate-y-1/2 bg-zinc-900 dark:bg-zinc-800 text-white px-3 py-2 rounded-lg text-sm font-medium whitespace-nowrap shadow-xl opacity-0 group-hover:opacity-100 transition-all duration-300 translate-x-[-10px] group-hover:translate-x-0 pointer-events-none z-50">
-                Contact
-              </div>
-            </div>
-          </Reveal>
+            );
+          })}
+          <div className="pt-2 mt-2 border-t border-zinc-100">
+            <a
+              href="#contact"
+              onClick={closeMenu}
+              className="w-full flex items-center justify-center py-2.5 rounded-xl bg-zinc-950 text-white text-sm font-medium hover:bg-black transition-colors"
+            >
+              Let's Talk
+            </a>
+          </div>
         </div>
-      </aside>
+      </div>
     </>
   );
 }
-
-export default NavBar;

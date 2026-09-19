@@ -1,4 +1,4 @@
-import type { ReactNode } from "react";
+import type { ReactNode, CSSProperties } from "react";
 import { useInView } from "../hooks/useInView";
 
 type AnimationType = "fade-up" | "fade-down" | "fade-left" | "fade-right" | "zoom" | "flip";
@@ -9,60 +9,55 @@ type RevealProps = {
   animation?: AnimationType;
   duration?: number;
   distance?: number;
+  className?: string;
 };
 
 export default function Reveal({ 
   children, 
   delayMs = 0, 
   animation = "fade-up",
-  duration = 10000,
-  distance = 4
+  duration = 750,
+  distance = 24,
+  className = ""
 }: RevealProps) {
   const { ref, inView } = useInView<HTMLDivElement>({
     threshold: 0.1,
-    rootMargin: "0px 0px -10% 0px"
+    rootMargin: "0px 0px -6% 0px"
   });
 
-  const getAnimationClass = (type: AnimationType, isInView: boolean) => {
-    const baseClasses = `transform transition will-change-auto`;
-    const durationClass = `duration-${duration}`;
-    
-    const animationClasses = {
-      'fade-up': isInView
-        ? 'opacity-100 translate-y-0'
-        : `opacity-0 translate-y-[${distance}px]`,
-      'fade-down': isInView
-        ? 'opacity-100 translate-y-0'
-        : `opacity-0 -translate-y-[${distance}px]`,
-      'fade-left': isInView
-        ? 'opacity-100 translate-x-0'
-        : `opacity-0 translate-x-[${distance}px]`,
-      'fade-right': isInView
-        ? 'opacity-100 translate-x-0'
-        : `opacity-0 -translate-x-[${distance}px]`,
-      'zoom': isInView
-        ? 'opacity-100 scale-100'
-        : 'opacity-0 scale-95',
-      'flip': isInView
-        ? 'opacity-100 rotate-0'
-        : 'opacity-0 -rotate-12'
-    };
+  const getTransform = (type: AnimationType): string => {
+    if (inView) return "translate3d(0, 0, 0) scale(1)";
+    switch (type) {
+      case "fade-up":
+        return `translate3d(0, ${distance}px, 0) scale(0.985)`;
+      case "fade-down":
+        return `translate3d(0, -${distance}px, 0) scale(0.985)`;
+      case "fade-left":
+        return `translate3d(${distance}px, 0, 0) scale(0.985)`;
+      case "fade-right":
+        return `translate3d(-${distance}px, 0, 0) scale(0.985)`;
+      case "zoom":
+        return "scale(0.94)";
+      case "flip":
+        return "rotate(-8deg) scale(0.96)";
+      default:
+        return `translate3d(0, ${distance}px, 0) scale(0.985)`;
+    }
+  };
 
-    return `${baseClasses} ${durationClass} ease-out ${animationClasses[type]}`;
+  const style: CSSProperties = {
+    opacity: inView ? 1 : 0,
+    transform: getTransform(animation),
+    transitionProperty: "opacity, transform",
+    transitionDuration: `${duration}ms`,
+    transitionDelay: `${delayMs}ms`,
+    transitionTimingFunction: "cubic-bezier(0.16, 1, 0.3, 1)",
+    willChange: "opacity, transform",
   };
 
   return (
-    <div
-      ref={ref}
-      style={{ 
-        transitionDelay: `${delayMs}ms`,
-        transitionTimingFunction: "cubic-bezier(0.4, 0, 0.2, 1)"
-      }}
-      className={getAnimationClass(animation, inView)}
-    >
+    <div ref={ref} style={style} className={className}>
       {children}
     </div>
   );
 }
-
-
